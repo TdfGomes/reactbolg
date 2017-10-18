@@ -1,9 +1,17 @@
-import React from 'react';
-import Button from 'material-ui/Button';
+import React from 'react'
+import Grid from 'material-ui/Grid'
+import NavBar from './NavBar'
+import SideBar from './SideBar'
+import Main from './Main'
 
 const App = () => (
-  <Button raised color="primary">HELLOR</Button>
+  <div>
+    <NavBar/>
+    <Grid container spacing={8} className='container-padTop'>
+      <SideBar/>
+      <Main/>
+    </Grid>
+  </div>
 )
 
-
-export default App;
+export default App
