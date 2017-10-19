@@ -1,17 +1,29 @@
 import React from 'react'
-import Grid from 'material-ui/Grid'
+import { Route, Switch } from 'react-router-dom'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+import { cyan } from 'material-ui/colors'
+//Components
 import NavBar from './NavBar'
-import SideBar from './SideBar'
-import Main from './Main'
+//Routes
+import Home from '../routes/Home'
+import CreatePost from '../routes/CreatePost'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: cyan
+  },
+});
 
 const App = () => (
-  <div>
-    <NavBar/>
-    <Grid container spacing={8} className='container-padTop'>
-      <SideBar/>
-      <Main/>
-    </Grid>
-  </div>
+  <MuiThemeProvider theme={theme}>
+    <div>
+      <NavBar/>
+      <Switch>
+        <Route exact path='/' component={Home}/>
+        <Route exact path='/create-post' component={CreatePost}/>
+      </Switch>
+    </div>
+  </MuiThemeProvider>
 )
 
 export default App
