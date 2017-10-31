@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper'
 
 const Main = () =>(
   <Grid item xs={12} sm={8}>
-    <Paper>MAIN</Paper>
+    <Paper style={{padding:5}}>MAIN</Paper>
   </Grid>
 )
 

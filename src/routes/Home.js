@@ -4,7 +4,7 @@ import SideBar from '../components/SideBar'
 import Main from '../components/Main'
 
 const Home = () => (
-  <Grid container spacing={8} style={{paddingTop:70}}>
+  <Grid container justify="center" spacing={8} style={{paddingTop:100}}>
     <SideBar />
     <Main />
   </Grid>

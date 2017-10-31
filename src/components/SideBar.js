@@ -5,7 +5,7 @@ import SearchBar from './SearchBar'
 
 const SideBar = () => (
   <Grid item xs={12} sm={4}>
-    <Paper>
+    <Paper style={{padding:'5px 5px 5px 20px'}}>
       <SearchBar/>
     </Paper>
   </Grid>
