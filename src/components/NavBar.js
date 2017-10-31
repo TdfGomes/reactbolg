@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import Typography from 'material-ui/Typography'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/Button'
@@ -16,6 +16,11 @@ const styles = {
   },
   iconButton:{
     color:'#fff',
+  },
+  brand:{
+    color:'#fff',
+    textDecoration:'none',
+    cursor:'pointer'
   }
 }
 
@@ -23,7 +28,7 @@ const NavBar = () => (
   <AppBar>
     <Toolbar>
       <Typography type="title" style={styles.title}>
-        ReactBolg
+        <Link to='/' style={styles.brand}>ReactBolg</Link>
       </Typography>
       <NavLink exact to='/'>
         <Tooltip id='home' title='Home' placement='bottom'>

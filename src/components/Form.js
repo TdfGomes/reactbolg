@@ -8,7 +8,10 @@ import Paper from 'material-ui/Paper'
 import Send from 'material-ui-icons/Send'
 
 const styles = theme => ({
-
+  title: Object.assign(theme.typography.headline,{textAlign:'center'}),
+  iconRoot: {
+    color:'#fff'
+  }
 })
 
 class Form extends Component{
@@ -40,10 +43,11 @@ class Form extends Component{
       }
 
     ]
+    const {classes} = this.props
 
     return(
       <Paper component='form' style={{padding:35}}>
-        <h2>Create Your Post</h2>
+        <h2 className={classes.title}>Create Your Post</h2>
         <Grid container justify="center" spacing={8}> 
           <Grid item xs={12} sm={4}>
             <TextField
@@ -94,8 +98,8 @@ class Form extends Component{
           </Grid>
           <Grid item xs={12} style={{textAlign:'right'}}>
             <Button raised color="primary" aria-label="submit">
-              <span style={{marginRight:10}}>submit</span>
-                <Send/>
+              <span style={{marginRight:10,color:'#fff'}}>submit</span>
+                <Send classes={{root:classes.iconRoot}}/>
             </Button>
           </Grid>
         </Grid>
