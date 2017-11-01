@@ -1,15 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+//UI
+import { withStyles } from 'material-ui/styles';
 import Grid from 'material-ui/Grid'
-import Paper from 'material-ui/Paper'
+//Components
 import SearchBar from './SearchBar'
 
-const SideBar = () => (
-  <Grid item xs={12} sm={4}>
-    <Paper style={{padding:'5px 5px 5px 20px'}}>
-      <SearchBar/>
-    </Paper>
+const styles = (theme) => ({
+  gridRoot:{
+    backgroundColor: theme.palette.grey['50']
+  }
+})
+
+const SideBar = (props) => (
+
+  <Grid classes={{ typeItem:props.classes.gridRoot}} item xs={12} sm={4}>
+    <SearchBar/>
   </Grid>
 );
 
+SideBar.proptypes = {
+  classes:PropTypes.object.isRequired
+}
 
-export default SideBar;
+export default withStyles(styles)(SideBar);

@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+//UI
 import { withStyles } from 'material-ui/styles';
 import Input from 'material-ui/Input'
 import Search from 'material-ui-icons/Search'
@@ -68,6 +70,10 @@ const SearchBar = (props) => {
       </div>
     </div>
   )
+}
+
+SearchBar.propTypes = {
+  classes: PropTypes.object.isRequired
 }
 
 
