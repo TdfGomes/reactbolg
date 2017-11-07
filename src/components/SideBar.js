@@ -8,7 +8,10 @@ import SearchBar from './SearchBar'
 
 const styles = (theme) => ({
   gridRoot:{
-    backgroundColor: theme.palette.grey['50']
+    backgroundColor: theme.palette.grey['50'],
+    borderRight: `1px solid ${theme.palette.grey['200']}`,
+    padding:'100px 4px 25px 20px!important',
+    minHeight:'100vh'
   }
 })
 
