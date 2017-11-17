@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add'
-import RemoveIcon from 'material-ui-icons/Remove'
+import ThumbUpIcon from 'material-ui-icons/ThumbUp'
+import ThumbDownIcon from 'material-ui-icons/ThumbDown'
 
 const styles = theme => ({
   buttonFlex:{
@@ -53,13 +53,13 @@ class VoteButtons extends Component {
       <div className={classes.buttonFlex}>
         <div className={classes.buttonFlex}>
           <Button fab aria-label="add" classes={{fab:classes.fabButton,raised:classes.buttonAdd}} onClick={this.addVote}>
-            <AddIcon />
+            <ThumbUpIcon / >
           </Button>
           <span className={classes.voteNumber}>0</span>
         </div>
         <div className={classes.buttonFlex}>
           <Button fab aria-label="remove" classes={{ fab: classes.fabButton, raised: classes.buttonRemove}} onClick={this.removeVote}>
-            <RemoveIcon />
+            <ThumbDownIcon / >
           </Button>
           <span className={classes.voteNumber}>0</span>
         </div>
