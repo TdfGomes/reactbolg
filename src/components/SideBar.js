@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { getCategories } from '../utils/'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -36,18 +35,6 @@ class SideBar extends Component{
   }
   static proptypes = {
     classes:PropTypes.object.isRequired
-  }
-
-  handleGetCategories = (data) => {
-    data.map(cat => this.setState( (prevState) => {
-        const { name } = cat
-      return prevState.categories.concat(name)
-      }) 
-    )
-  }
-  
-  componentDidMount() {
-    getCategories().then(d => this.handleGetCategories(d))
   }
   
   render(){

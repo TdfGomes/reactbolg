@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { getPosts } from '../utils/'
 //UI
 import Grid from 'material-ui/Grid'
 import { withStyles } from 'material-ui/styles'
@@ -16,10 +15,6 @@ const styles = (theme) => ({
 class Main extends Component{
   static propTypes = {
     classes: PropTypes.object.isRequired
-  }
-
-  componentDidMount() {
-    getPosts().then(d=>console.log(d));
   }
 
   render(){
