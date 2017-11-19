@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+//UI
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import { cyan } from 'material-ui/colors'
 //Components
@@ -14,16 +15,25 @@ const theme = createMuiTheme({
   },
 });
 
-const App = () => (
-  <MuiThemeProvider theme={theme}>
-    <div>
-      <NavBar/>
-      <Switch>
-        <Route exact path='/' component={Home}/>
-        <Route exact path='/create-post' component={CreatePost}/>
-      </Switch>
-    </div>
-  </MuiThemeProvider>
-)
+class App extends Component{
+  componentDidMount() {
+  
+  }
+  
+  render(){
+    return(
+      <MuiThemeProvider theme={theme}>
+        <div>
+          <NavBar/>
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route exact path='/create-post' component={CreatePost}/>
+          </Switch>
+        </div>
+      </MuiThemeProvider>
+    )
+  }
+} 
 
 export default App
+
