@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch' 
-import { fetchAllComments } from '../actions/commentsAction';
 
 const URL = "http://localhost:3001"
 const headers = {
@@ -31,7 +30,14 @@ export const fetchComments = (post_id) => (
   }).then(res => res.json())  
 )
 
-export const getAllComments = () => (
-  getPosts().then(posts => posts.map(post => fetchAllComments(post.id)))
-)
+export const getAllComments = () => {
+  const postsIds = getPosts().then(posts => posts.map(post => post.id))
+  
+  return postsIds.then(post => 
+    Promise
+      .all(post.map(postid => fetchComments(postid)))
+      .then(comments => comments )
+  )
+  
+}
 
