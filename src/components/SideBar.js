@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
+import Button from 'material-ui/Button'
 //Components
 import SearchBar from './SearchBar'
 
@@ -21,30 +23,39 @@ const styles = (theme) => ({
     top: 5,
     width: '33.3%',
     height: '100%',
-    padding:'100px 4px 25px 20px',
+    padding:'100px 15px 25px 20px',
+  },
+  buttonsContainer:{
+    width:'100%',
+  },
+  button:{
+    color:'#fff'
   }
 })
 
 class SideBar extends Component{
-  constructor(props){
-    super(props)
-    
-    this.state = {
-      categories:[]
-    }
-  }
+
   static proptypes = {
-    classes:PropTypes.object.isRequired
+    classes:PropTypes.object.isRequired,
+    categories:PropTypes.array.isRequired
   }
   
   render(){
-    const { classes } = this.props
+    const { categories, classes } = this.props
     return(
       <Grid classes={{ typeItem:classes.gridRoot}} item xs={12} sm={4}>
         <div className={classes.fixedSideBar}>
+          <Typography type='subheading' color='secondary' style={{marginBottom:5}}>search:</Typography>
           <SearchBar/>
           <div style={{ marginTop: 35 }}>
-            <Typography type='subheading' color='secondary'>categories:</Typography>
+            <Typography type='subheading' color='secondary' style={{marginBottom:5}}>categories:</Typography>
+            <div className={classes.buttonsContainer}>
+              {categories.map(cat => 
+                <Link key={cat.name} to={`/categories/${cat.path}`} style={{ textDecoration: 'none',display:'block',marginBottom:15}}>
+                  <Button classes={{raisedPrimary:classes.button}}raised color="primary">{cat.name}</Button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </Grid>

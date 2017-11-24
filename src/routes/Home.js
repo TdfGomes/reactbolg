@@ -1,41 +1,50 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { fetchPosts } from '../actions/postsAction'
 import { fetchCategories } from '../actions/categoriesAction';
-// import { getCategories } from '../utils'
+import { fetchAllComments } from '../actions/commentsAction'
 //UI
 import Grid from 'material-ui/Grid'
 //COMPONENTS
 import SideBar from '../components/SideBar'
 import Main from '../components/Main'
 
+
 class Home extends Component {
   componentDidMount() {
-    this.props.getPosts()
-    this.props.getCategories()
+    const { getPosts, getCategories, getAllComments } = this.props.actions
+    getPosts()
+    getCategories()
+    getAllComments()
   }
   
   render(){
     return(
       <Grid container justify="center" spacing={8}>
-        <SideBar />
-        <Main />
+        <SideBar categories={this.props.categories}/>
+        <Main posts={this.props.posts}/>
       </Grid>
     )
   }
 }
 
-function mapStateToProps({ posts, categories }) {
+function mapStateToProps(state) {
   return {
-    posts,
-    categories
-  }
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    getPosts: () => dispatch( fetchPosts() ),
-    getCategories: () => dispatch( fetchCategories() )
+    posts:state.posts,
+    categories:state.categories,
+    comments:state.comments
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home)
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      getPosts: () => fetchPosts(),
+      getCategories: () => fetchCategories(),
+      getAllComments: () => fetchAllComments()
+    }, dispatch) 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

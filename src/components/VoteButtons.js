@@ -35,7 +35,8 @@ const styles = theme => ({
 class VoteButtons extends Component {
 
   static propTypes = {
-    classes:PropTypes.object.isRequired
+    classes:PropTypes.object.isRequired,
+    voteScore:PropTypes.number.isRequired
   }
 
   addVote = (e) => {
@@ -55,13 +56,12 @@ class VoteButtons extends Component {
           <Button fab aria-label="add" classes={{fab:classes.fabButton,raised:classes.buttonAdd}} onClick={this.addVote}>
             <ThumbUpIcon / >
           </Button>
-          <span className={classes.voteNumber}>0</span>
+          <span className={classes.voteNumber}>{this.props.voteScore}</span>
         </div>
         <div className={classes.buttonFlex}>
           <Button fab aria-label="remove" classes={{ fab: classes.fabButton, raised: classes.buttonRemove}} onClick={this.removeVote}>
             <ThumbDownIcon / >
           </Button>
-          <span className={classes.voteNumber}>0</span>
         </div>
       </div>
     )

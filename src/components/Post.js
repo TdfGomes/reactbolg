@@ -24,43 +24,30 @@ const styles = (theme) => ({
   },
   cardActionsRoot:{
     justifyContent:'space-between'
+  },
+  postCard:{
+    marginBottom: 25
   }
 })
-
-const PostContent = (props) => {
-  const { classes } = props
-  const date = new Date()
-  const dateOtpions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-  
-  return(
-    <div>
-      <Typography type="body1" className={classes.date}>
-        {date.toLocaleDateString('en-us', dateOtpions)}
-      </Typography>
-      <Typography type="title" component="h2">
-        Lorem Title
-        </Typography>
-      <Typography type="subheading" className={classes.author}>
-        by author
-        </Typography>
-      <Typography type="body1" className={classes.body}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia nunc in erat cursus, vel consequat tortor tristique. In sit amet purus accumsan, dapibus est eu, malesuada sapien.
-      </Typography>
-    </div>
-  )
-}
 
 
 const Post = (props) => {
   const { classes } = props
+  const date = new Date(props.timestamp)
+  const dateOtpions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
   return(
-    <Card>
+    <Card classes={{root:classes.postCard}}>
       <CardContent>
-        <PostContent classes={classes}/>
+        <div>
+          <Typography type="body1" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography>
+          <Typography type="title" component="h2">{props.title}</Typography>
+          <Typography type="subheading" className={classes.author}>{props.author}</Typography>
+          <Typography type="body1" className={classes.body}>{props.body}</Typography>
+        </div>
         <CommentsNumber/>
       </CardContent>
       <CardActions classes={{root:classes.cardActionsRoot}}>
-        <VoteButtons/>
+        <VoteButtons voteScore={props.voteScore}/>
         <EditButtons/>
       </CardActions>
     </Card>
@@ -68,7 +55,15 @@ const Post = (props) => {
 }
 
 Post.propTypes = {
-  classes:PropTypes.object.isRequired
+  classes:PropTypes.object.isRequired,
+  author:PropTypes.string.isRequired,
+  body:PropTypes.string.isRequired,
+  category:PropTypes.string.isRequired,
+  deleted:PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  timestamp:PropTypes.number.isRequired,
+  title:PropTypes.string.isRequired,
+  voteScore:PropTypes.number.isRequired
 }
 
 export default withStyles(styles)(Post)

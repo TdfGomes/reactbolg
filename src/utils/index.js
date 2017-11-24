@@ -6,19 +6,31 @@ const headers = {
   'Authorization': 'whatever-you-want'
 }
 
-export const getPosts = () =>
+export const getPosts = () => (
   fetch(`${URL}/posts`, {
     headers: {
       ...headers
     }
-}).then(res => res.json())
+  }).then(res => res.json())
+)
 
-export const getCategories = () =>
+export const getCategories = () => (
   fetch(`${URL}/categories`, {
     headers: {
       ...headers
     }
-}).then(res => res.json())
+  }).then(res => res.json())
+)
 
+export const fetchComments = (post_id) => ( 
+  fetch(`${URL}/posts/${post_id}/comments`,{
+    headers:{
+      ...headers
+    }
+  }).then(res => res.json())  
+)
 
+export const getAllComments = () => (
+  getPosts().then(posts => posts.reduce( (posts, post)  => (fetchComments(post.id)),{}))
+)
 
