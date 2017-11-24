@@ -51,7 +51,7 @@ class SideBar extends Component{
             <Typography type='subheading' color='secondary' style={{marginBottom:5}}>categories:</Typography>
             <div className={classes.buttonsContainer}>
               {categories.map(cat => 
-                <Link key={cat.name} to={`/categories/${cat.path}`} style={{ textDecoration: 'none',display:'block',marginBottom:15}}>
+                <Link key={cat.name} to={`/category/${cat.path}`} style={{ textDecoration: 'none',display:'block',marginBottom:15}}>
                   <Button classes={{raisedPrimary:classes.button}}raised color="primary">{cat.name}</Button>
                 </Link>
               )}

@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch' 
+import { fetchAllComments } from '../actions/commentsAction';
 
 const URL = "http://localhost:3001"
 const headers = {
@@ -31,6 +32,6 @@ export const fetchComments = (post_id) => (
 )
 
 export const getAllComments = () => (
-  getPosts().then(posts => posts.reduce( (posts, post)  => (fetchComments(post.id)),{}))
+  getPosts().then(posts => posts.map(post => fetchAllComments(post.id)))
 )
 

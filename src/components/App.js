@@ -27,6 +27,7 @@ class App extends Component{
           <NavBar/>
           <Switch>
             <Route exact path='/' component={Home}/>
+            <Route exact path='/category/:category' component={Home}/>
             <Route exact path='/create-post' component={CreatePost}/>
           </Switch>
         </div>
