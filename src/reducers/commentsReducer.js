@@ -1,9 +1,23 @@
 import { REQUEST_ALL_COMMENTS } from "../actions/actionTypes";
 
 const comments = (state = {}, action) => {
+  let allComents = {}
+  //wait until action.comments have resuls
+  if(typeof action.comments === 'object'){
+    const { comments } = action
+    //get all posts ids from comment object using destrutcturing in a loop
+    const postsIds = comments.map( ([{parentId}]) => parentId)
+    //convert comments array in a object with a post id key
+    allComents = comments.reduce( (newObj,comment,key) => {
+      const newKey = postsIds[key] || key
+      newObj[newKey] = comment
+      return newObj
+    },{})
+  }
+
   switch (action.type) {
     case REQUEST_ALL_COMMENTS:
-      return Object.assign(state,action.comments)
+      return Object.assign(state,allComents)
     default:
       return state
   }

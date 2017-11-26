@@ -30,6 +30,17 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
+  // const postsIds = state.posts.map(post => post.id)
+  // console.log(state.comments)
+  // if(postsIds.length > 0){
+  //   const newObj = Object.keys(state.comments).map(key => {
+  //     const newKey = postsIds[key] || key
+  //     return {
+  //       [newKey]:state.comments[key]  
+  //     }
+  //   })
+  //   console.log(newObj)
+  // }
   return {
     posts:state.posts,
     categories:state.categories,
