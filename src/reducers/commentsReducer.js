@@ -6,7 +6,12 @@ const comments = (state = {}, action) => {
   if(typeof action.comments === 'object'){
     const { comments } = action
     //get all posts ids from comment object using destrutcturing in a loop
-    const postsIds = comments.map( ([{parentId}]) => parentId)
+    const postsIds = comments.map(comment => {
+      if(comment.length > 0){
+        const [{ parentId }] = comment
+        return parentId
+      }
+    })
     //convert comments array in a object with a post id key
     allComents = comments.reduce( (newObj,comment,key) => {
       const newKey = postsIds[key] || key
@@ -17,7 +22,7 @@ const comments = (state = {}, action) => {
 
   switch (action.type) {
     case REQUEST_ALL_COMMENTS:
-      return Object.assign(state,allComents)
+      return Object.assign(state, allComents)
     default:
       return state
   }
