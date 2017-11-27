@@ -7,10 +7,11 @@ const comments = (state = {}, action) => {
     const { comments } = action
     //get all posts ids from comment object using destrutcturing in a loop
     const postsIds = comments.map(comment => {
+      let parentId = ''
       if(comment.length > 0){
-        const [{ parentId }] = comment
-        return parentId
+         [{ parentId }] = comment
       }
+      return parentId
     })
     //convert comments array in a object with a post id key
     allComents = comments.reduce( (newObj,comment,key) => {
