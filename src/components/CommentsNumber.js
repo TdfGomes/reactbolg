@@ -15,8 +15,9 @@ class CommentsNumber extends Component {
   }
   
   static propTypes = {
-    postId:PropTypes.string.isRequired,
-    comments: PropTypes.object.isRequired
+    comments: PropTypes.object.isRequired,
+    getAllComments:PropTypes.func.isRequired,
+    postId:PropTypes.string.isRequired
   }
 
   componentWillMount() {
@@ -29,7 +30,7 @@ class CommentsNumber extends Component {
         })
       }
     })
-    
+
   }
 
   handleOnClick = (e) => {

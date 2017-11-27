@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { fetchPosts } from '../actions/postsAction'
 import { fetchCategories } from '../actions/categoriesAction';
-import { fetchAllComments } from '../actions/commentsAction'
+
 //UI
 import Grid from 'material-ui/Grid'
 //COMPONENTS
@@ -12,11 +13,16 @@ import Main from '../components/Main'
 
 
 class Home extends Component {
+  static propTypes = {
+    actions:PropTypes.object.isRequired,
+    categories:PropTypes.array.isRequired,
+    posts:PropTypes.array.isRequired
+  }
+
   componentDidMount() {
-    const { getPosts, getCategories, getAllComments } = this.props.actions
+    const { getPosts, getCategories } = this.props.actions
     getPosts()
     getCategories()
-    getAllComments()
   }
   
   render(){
@@ -32,9 +38,8 @@ class Home extends Component {
 function mapStateToProps(state) {
   
   return {
-    posts:state.posts,
     categories:state.categories,
-    comments:state.comments
+    posts:state.posts,
   }
 }
 
@@ -43,7 +48,6 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       getPosts: () => fetchPosts(),
       getCategories: () => fetchCategories(),
-      getAllComments: () => fetchAllComments()
     }, dispatch) 
   }
 }
