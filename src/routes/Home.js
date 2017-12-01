@@ -23,7 +23,7 @@ class Home extends Component {
     return(
       <Grid container justify="center" spacing={8}>
         <SideBar categories={this.props.categories}/>
-        <Main posts={this.props.posts}/>
+        <Main category={this.props.match.params} posts={this.props.posts}/>
       </Grid>
     )
   }

@@ -7,6 +7,7 @@ import Grid from 'material-ui/Grid'
 import Post from './Post'
 
 class Main extends Component{
+  
   static propTypes = {
     posts:PropTypes.array.isRequired
   }
@@ -14,10 +15,14 @@ class Main extends Component{
   componentDidMount() {
   }
   
+  
   render(){
     return(
       <Grid style={{padding:'100px 25px'}} item xs={12} sm={8}>
-        {this.props.posts.map(post=>( <Post key={post.id} {...post}/> ))}
+        {
+          ! this.props.category.category ? this.props.posts.map(post=>( <Post key={post.id} {...post}/> ))
+            : this.props.posts.filter(p => p.category === this.props.category.category).map(post => (<Post key={post.id} {...post} />) )
+        }
       </Grid>
     )
   }

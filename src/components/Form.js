@@ -49,23 +49,8 @@ class Form extends Component{
   }
 
   render(){
-    const categories = [
-      {
-        value: 'react',
-        label: 'react'
-      },
-      {
-        value: 'redux',
-        label: 'redux',
-      },
-      {
-        value: 'udacity',
-        label: 'udacity'
-      }
-
-    ]
-    const {classes} = this.props
-
+    const { categories, classes } = this.props
+    
     return(
       <Paper component='form' style={{padding:35}}>
         <h2 className={classes.title}>Create Your Post</h2>
@@ -102,8 +87,8 @@ class Form extends Component{
                 multiple={false}
               >
               {categories.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                <MenuItem key={option.name} value={option.name}>
+                    {option.name}
                 </MenuItem>
               ))}
               </Select>
@@ -132,5 +117,6 @@ class Form extends Component{
     )
   }
 }
+
 
 export default withStyles(styles)(Form)

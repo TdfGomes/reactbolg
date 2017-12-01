@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -30,7 +30,8 @@ const styles = (theme) => ({
   },
   button:{
     color:'#fff'
-  }
+  },
+  
 })
 
 class SideBar extends Component{
@@ -50,10 +51,13 @@ class SideBar extends Component{
           <div style={{ marginTop: 35 }}>
             <Typography type='subheading' color='secondary' style={{marginBottom:5}}>categories:</Typography>
             <div className={classes.buttonsContainer}>
+              <NavLink key="all" exact to="/" activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
+                <Button classes={{raisedPrimary:classes.button}}raised color="primary">All</Button>
+              </NavLink>
               {categories.map(cat => 
-                <Link key={cat.name} to={`/category/${cat.path}`} style={{ textDecoration: 'none',display:'block',marginBottom:15}}>
+                <NavLink key={cat.name} to={`/category/${cat.path}`} activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
                   <Button classes={{raisedPrimary:classes.button}}raised color="primary">{cat.name}</Button>
-                </Link>
+                </NavLink>
               )}
             </div>
           </div>
