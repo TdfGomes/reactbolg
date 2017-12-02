@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch' 
+import uuidv4 from 'uuid'
 
 const URL = "http://localhost:3001"
 const headers = {
@@ -6,6 +7,7 @@ const headers = {
   'Authorization': 'whatever-you-want'
 }
 
+//GET DATA
 export const getPosts = () => (
   fetch(`${URL}/posts`, {
     headers: {
@@ -38,6 +40,26 @@ export const getAllComments = () => {
       .all(post.map(postid => fetchComments(postid)))
       .then(comments => comments )
   )
-  
+}
+
+//POST DATA
+
+export const newPost = (post) => {
+  const requiredData = {
+    id: uuidv4,
+    timestamp: Date.now()
+  }
+  const data = new FormData()
+  data.append('json', JSON.stringify(requiredData))
+  data.append('json',JSON.stringify(post))
+
+  fetch(`${URL}/posts`, {
+    headers: {
+      ...headers
+    },
+    method:'POST',
+    body:data 
+  })
+
 }
 

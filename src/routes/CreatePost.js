@@ -3,11 +3,12 @@ import Grid from 'material-ui/Grid'
 import Form from '../components/Form'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { fetchCategories } from '../actions/categoriesAction'
+// import { fetchCategories } from '../actions/categoriesAction'
+
 
 class CreatePost extends Component{
   componentDidMount() {
-    this.props.getCategories()
+
   }
   
   render(){
@@ -24,9 +25,4 @@ const mapToStateToProps = (state) => ({
 })
 
 
-const mapDispatchToProps = (dispatch) => ({
-  getCategories: () => dispatch(fetchCategories()),
-})
-
-
-export default withRouter( connect(mapToStateToProps, mapDispatchToProps)(CreatePost) )
+export default withRouter( connect(mapToStateToProps)(CreatePost) )

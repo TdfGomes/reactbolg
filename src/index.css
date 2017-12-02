@@ -9,5 +9,6 @@ body {
 }
 
 .categorySelected > button {
-  background-color:#ff4081!important;
+  background-color:#1cbbd7!important;
+  color:#fff!important;
 }

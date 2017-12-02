@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
+//UTILS
 import { fetchPosts } from '../actions/postsAction'
 import { fetchCategories } from '../actions/categoriesAction';
-
 //UI
 import Grid from 'material-ui/Grid'
 //COMPONENTS
@@ -52,4 +53,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Home) )

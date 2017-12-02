@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+//UTILS
+import { newPost } from '../utils'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -48,71 +50,76 @@ class Form extends Component{
     })
   }
 
+  handleOnSubmit = (e) => {
+    e.preventDefault()
+    newPost(this.state).then(res => console.log(res.json()))
+  }
+  
   render(){
     const { categories, classes } = this.props
     
     return(
-      <Paper component='form' style={{padding:35}}>
-        <h2 className={classes.title}>Create Your Post</h2>
-        <Grid container justify="center" spacing={8}> 
-          <Grid item xs={12} sm={4}>
-            <TextField
-              id="title"
-              label="Title"
-              value={this.state.title}
-              onChange={this.handleChange('title')}
-              fullWidth
-              margin='normal'
-            />
+      <Paper component='form' method="POST" style={{ padding: 35 }} onSubmit={this.handleOnSubmit}>
+          <h2 className={classes.title}>Create Your Post</h2>
+          <Grid container justify="center" spacing={8}> 
+            <Grid item xs={12} sm={4}>
+              <TextField
+                id="title"
+                label="Title"
+                value={this.state.title}
+                onChange={this.handleChange('title')}
+                fullWidth
+                margin='normal'
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                id="author"
+                label="Author"
+                value={this.state.author}
+                onChange={this.handleChange('author')}
+                fullWidth
+                margin='normal'
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl classes={{root:classes.fromControlRoot}}>
+                <InputLabel htmlFor="category">Category</InputLabel>
+                <Select
+                  value={this.state.category}
+                  onChange={this.handleChange('category')}
+                  input={<Input id="category" />}
+                  native={false}
+                  displayEmpty
+                  multiple={false}
+                >
+                {categories.map(option => (
+                  <MenuItem key={option.name} value={option.name}>
+                      {option.name}
+                  </MenuItem>
+                ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="comment"
+                label="Comment"
+                value={this.state.comment}
+                onChange={this.handleChange('comment')}
+                margin='normal'
+                fullWidth
+                multiline
+                rows="4"
+              />
+            </Grid>
+            <Grid item xs={12} style={{textAlign:'right'}}>
+            <Button raised color="primary" aria-label="submit" type="submit">
+                <span style={{marginRight:10,color:'#fff'}}>submit</span>
+                  <Send classes={{root:classes.iconRoot}}/>
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              id="author"
-              label="Author"
-              value={this.state.author}
-              onChange={this.handleChange('author')}
-              fullWidth
-              margin='normal'
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <FormControl classes={{root:classes.fromControlRoot}}>
-              <InputLabel htmlFor="category">Category</InputLabel>
-              <Select
-                value={this.state.category}
-                onChange={this.handleChange('category')}
-                input={<Input id="category" />}
-                native={false}
-                displayEmpty
-                multiple={false}
-              >
-              {categories.map(option => (
-                <MenuItem key={option.name} value={option.name}>
-                    {option.name}
-                </MenuItem>
-              ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="comment"
-              label="Comment"
-              value={this.state.comment}
-              onChange={this.handleChange('comment')}
-              margin='normal'
-              fullWidth
-              multiline
-              rows="4"
-            />
-          </Grid>
-          <Grid item xs={12} style={{textAlign:'right'}}>
-            <Button raised color="primary" aria-label="submit">
-              <span style={{marginRight:10,color:'#fff'}}>submit</span>
-                <Send classes={{root:classes.iconRoot}}/>
-            </Button>
-          </Grid>
-        </Grid>
       </Paper>
     )
   }

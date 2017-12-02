@@ -52,11 +52,11 @@ class SideBar extends Component{
             <Typography type='subheading' color='secondary' style={{marginBottom:5}}>categories:</Typography>
             <div className={classes.buttonsContainer}>
               <NavLink key="all" exact to="/" activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
-                <Button classes={{raisedPrimary:classes.button}}raised color="primary">All</Button>
+                <Button classes={{raisedPrimary:classes.button}}raised color="contrast">All</Button>
               </NavLink>
               {categories.map(cat => 
                 <NavLink key={cat.name} to={`/category/${cat.path}`} activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
-                  <Button classes={{raisedPrimary:classes.button}}raised color="primary">{cat.name}</Button>
+                  <Button classes={{raisedPrimary:classes.button}}raised color="contrast">{cat.name}</Button>
                 </NavLink>
               )}
             </div>
