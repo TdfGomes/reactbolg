@@ -45,21 +45,22 @@ export const getAllComments = () => {
 //POST DATA
 
 export const newPost = (post) => {
-  const requiredData = {
-    id: uuidv4,
-    timestamp: Date.now()
+
+  const result = {
+    id: uuidv4().replace(/-/g, ''),
+    timestamp: Date.now(),
+    ...post
   }
-  const data = new FormData()
-  data.append('json', JSON.stringify(requiredData))
-  data.append('json',JSON.stringify(post))
+  
+  console.log(result)
 
   fetch(`${URL}/posts`, {
     headers: {
       ...headers
     },
     method:'POST',
-    body:data 
-  })
+    body:JSON.stringify(result) 
+  }).then(res => res.json())
 
 }
 
