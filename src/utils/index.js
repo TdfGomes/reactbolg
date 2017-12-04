@@ -43,23 +43,19 @@ export const getAllComments = () => {
 }
 
 //POST DATA
-
-export const newPost = (post) => {
-
+export const addPost = (post) => {
   const result = {
     id: uuidv4().replace(/-/g, ''),
     timestamp: Date.now(),
     ...post
   }
-  
-  console.log(result)
-
   fetch(`${URL}/posts`, {
+    method: 'POST',
     headers: {
-      ...headers
+      ...headers,
+      'Content-Type': 'application/json'
     },
-    method:'POST',
-    body:JSON.stringify(result) 
+    body: JSON.stringify(result)
   }).then(res => res.json())
 
 }

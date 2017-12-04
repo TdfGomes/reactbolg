@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-//UTILS
-import { newPost } from '../utils'
+import { connect } from 'react-redux'
+import { addNewPost } from '../actions/postsAction'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -34,8 +34,8 @@ class Form extends Component{
     this.state = {
       author:'',
       title:'',
-      category:[],
-      comment:''
+      category:'',
+      body:''
     }
 
   }
@@ -52,7 +52,7 @@ class Form extends Component{
 
   handleOnSubmit = (e) => {
     e.preventDefault()
-    newPost(this.state).then(res => console.log(res.json()))
+    this.props.createPost(this.state)
   }
   
   render(){
@@ -103,10 +103,10 @@ class Form extends Component{
             </Grid>
             <Grid item xs={12}>
               <TextField
-                id="comment"
+                id="body"
                 label="Comment"
-                value={this.state.comment}
-                onChange={this.handleChange('comment')}
+                value={this.state.body}
+                onChange={this.handleChange('body')}
                 margin='normal'
                 fullWidth
                 multiline
@@ -125,5 +125,8 @@ class Form extends Component{
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  createPost: (data) => dispatch(addNewPost(data))
+})
 
-export default withStyles(styles)(Form)
+export default connect(null, mapDispatchToProps)( withStyles(styles)(Form) )
