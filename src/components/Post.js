@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 //UI
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
@@ -40,7 +41,11 @@ const Post = (props) => {
       <CardContent>
         <div>
           <Typography type="body1" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography>
-          <Typography type="title" component="h2">{props.title}</Typography>
+          <Typography type="title" component="h2">
+            <Link to={`/post/${props.id}`}>
+            {props.title}
+            </Link>
+          </Typography>
           <Typography type="subheading" className={classes.author}>{props.author}</Typography>
           <Typography type="body1" className={classes.body}>{props.body}</Typography>
         </div>

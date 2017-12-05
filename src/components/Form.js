@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+//UTILS
 import { addNewPost } from '../actions/postsAction'
-// import { addPost } from '../utils'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -44,7 +44,9 @@ class Form extends Component{
   }
 
   static propTypes = {
-    classes:PropTypes.object.isRequired
+    classes:PropTypes.object.isRequired,
+    createPost: PropTypes.func.isRequired,
+    categories: PropTypes.array.isRequired
   }
 
   handleChange = (inputName) => (event) => {
