@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addNewPost } from '../actions/postsAction'
+// import { addPost } from '../utils'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -35,7 +36,8 @@ class Form extends Component{
       author:'',
       title:'',
       category:'',
-      body:''
+      body:'',
+      sentOk: false
     }
 
   }
@@ -52,7 +54,20 @@ class Form extends Component{
 
   handleOnSubmit = (e) => {
     e.preventDefault()
-    this.props.createPost(this.state)
+    const { createPost } = this.props
+    const {author, title, category, body } = this.state
+    createPost({
+      author,
+      body,
+      category,
+      title
+    })
+      .then(d => this.setState({
+        author: '',
+        title: '',
+        category: '',
+        body: ''
+      }))
   }
   
   render(){

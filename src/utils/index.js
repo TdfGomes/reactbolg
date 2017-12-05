@@ -49,7 +49,7 @@ export const addPost = (post) => {
     timestamp: Date.now(),
     ...post
   }
-  fetch(`${URL}/posts`, {
+  return fetch(`${URL}/posts`, {
     method: 'POST',
     headers: {
       ...headers,
@@ -57,6 +57,5 @@ export const addPost = (post) => {
     },
     body: JSON.stringify(result)
   }).then(res => res.json())
-
 }
 
