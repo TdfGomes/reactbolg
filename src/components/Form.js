@@ -13,6 +13,7 @@ import { MenuItem } from 'material-ui/Menu'
 import { FormControl } from 'material-ui/Form';
 import Button from 'material-ui/Button'
 import Paper from 'material-ui/Paper'
+import Snackbar from 'material-ui/Snackbar'
 //icons
 import Send from 'material-ui-icons/Send'
 
@@ -56,24 +57,30 @@ class Form extends Component{
     e.preventDefault()
     const { createPost } = this.props
     const {author, title, category, body } = this.state
-    createPost({
-      author,
-      body,
-      category,
-      title
-    })
-      .then(d => this.setState({
-        author: '',
-        title: '',
-        category: '',
-        body: ''
-      }))
+    
+    if(author.length > 0 && body.length > 0 && category.length > 0 && title.length > 0){
+      createPost({
+        author,
+        body,
+        category,
+        title
+      })
+        .then( () => this.setState({
+          author: '',
+          title: '',
+          category: '',
+          body: '',
+          sentOk: true
+        }))
+    }
   }
   
   render(){
     const { categories, classes } = this.props
     
     return(
+      <div>
+
       <Paper component='form' method="POST" style={{ padding: 35 }} onSubmit={this.handleOnSubmit}>
           <h2 className={classes.title}>Create Your Post</h2>
           <Grid container justify="center" spacing={8}> 
@@ -136,6 +143,16 @@ class Form extends Component{
             </Grid>
           </Grid>
       </Paper>
+        <Snackbar
+          anchorOrigin={{ vertical:'top', horizontal:'center' }}
+          open={this.state.sentOk}
+          onRequestClose={ () => this.setState({sentOk:false})}
+          SnackbarContentProps={{
+            'aria-describedby': 'newPost',
+          }}
+          message={<span id="newPost">You add a new post with sucess</span>}
+        />
+      </div>
     )
   }
 }
