@@ -7,7 +7,7 @@ const headers = {
   'Authorization': 'whatever-you-want'
 }
 
-//GET DATA
+//POSTS
 export const getPosts = () => (
   fetch(`${URL}/posts`, {
     headers: {
@@ -16,6 +16,16 @@ export const getPosts = () => (
   }).then(res => res.json())
 )
 
+export const getPost = (postid) => (
+  fetch(`${URL}/posts/${postid}`, {
+    headers: {
+      ...headers
+    }
+  }).then(res => res.json())
+)
+
+
+//CATEGORIES
 export const getCategories = () => (
   fetch(`${URL}/categories`, {
     headers: {
@@ -23,7 +33,7 @@ export const getCategories = () => (
     }
   }).then(res => res.json())
 )
-
+//COMMENTS
 export const fetchComments = (post_id) => ( 
   fetch(`${URL}/posts/${post_id}/comments`,{
     headers:{
@@ -42,7 +52,7 @@ export const getAllComments = () => {
   )
 }
 
-//POST DATA
+//POST POST
 export const addPost = (post) => {
   const result = {
     id: uuidv4().replace(/-/g, ''),

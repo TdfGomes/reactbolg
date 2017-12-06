@@ -30,7 +30,7 @@ class App extends Component{
             <Route exact path='/' component={Home}/>
             <Route exact path='/category/:category' component={Home}/>
             <Route exact path='/create-post' component={CreatePost}/>
-            <Route exact path='/post/:id' component={SinglePost}/>
+            <Route exact path='/posts/:id' component={SinglePost}/>
           </Switch>
         </div>
       </MuiThemeProvider>

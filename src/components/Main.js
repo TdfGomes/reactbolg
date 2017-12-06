@@ -21,7 +21,7 @@ class Main extends Component{
       <Grid style={{padding:'100px 25px'}} item xs={12} sm={8}>
         {
           ! this.props.category.category ? this.props.posts.map(post=>( <Post key={post.id} {...post}/> ))
-            : this.props.posts.filter(p => p.category === this.props.category.category).map(post => (<Post key={post.id} {...post} />) )
+            : this.props.posts.filter(p => p.category === this.props.category.category).map(post => (<Post key={post.id} isSingle={false} {...post} />) )
         }
       </Grid>
     )

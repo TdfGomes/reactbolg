@@ -42,9 +42,7 @@ const Post = (props) => {
         <div>
           <Typography type="body1" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography>
           <Typography type="title" component="h2">
-            <Link to={`/post/${props.id}`}>
-            {props.title}
-            </Link>
+            {!props.isSingle ? <Link to={`/posts/${props.id}`}>{props.title}</Link> :  props.title }
           </Typography>
           <Typography type="subheading" className={classes.author}>{props.author}</Typography>
           <Typography type="body1" className={classes.body}>{props.body}</Typography>
@@ -53,7 +51,7 @@ const Post = (props) => {
       </CardContent>
       <CardActions classes={{root:classes.cardActionsRoot}}>
         <VoteButtons voteScore={props.voteScore}/>
-        <EditButtons/>
+        {props.isSingle && <EditButtons/>}
       </CardActions>
     </Card>
   )
@@ -68,7 +66,8 @@ Post.propTypes = {
   id: PropTypes.string.isRequired,
   timestamp:PropTypes.number.isRequired,
   title:PropTypes.string.isRequired,
-  voteScore:PropTypes.number.isRequired
+  voteScore:PropTypes.number.isRequired,
+  isSingle: PropTypes.bool
 }
 
 export default withStyles(styles)(Post)
