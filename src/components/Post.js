@@ -47,7 +47,7 @@ const Post = (props) => {
           <Typography type="subheading" className={classes.author}>{props.author}</Typography>
           <Typography type="body1" className={classes.body}>{props.body}</Typography>
         </div>
-        <CommentsNumber postId={props.id}/>
+        { !props.isSingle && <CommentsNumber postId={props.id}/>}
       </CardContent>
       <CardActions classes={{root:classes.cardActionsRoot}}>
         <VoteButtons voteScore={props.voteScore}/>
