@@ -21,7 +21,8 @@ const styles = (theme) => ({
   },
   body:{
     marginTop:25,
-    marginBottom:25
+    marginBottom:25,
+    fontSize:17
   },
   cardActionsRoot:{
     justifyContent:'space-between'

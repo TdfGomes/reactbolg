@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 //UI
 import Grid from 'material-ui/Grid'
-import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography'
 //Components
 import Post from '../components/Post'
@@ -33,11 +32,7 @@ class SinglePost extends Component {
     const postComments = this.props.comments[id]
     if(postComments){
       return (
-        postComments.map(comment => (
-          <Paper key={comment.id}>
-            <Comment {...comment}/>
-          </Paper>
-        ))
+        postComments.map(comment => <Comment key={comment.id} {...comment}/>)
       )
     }
     else{
