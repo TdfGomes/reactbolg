@@ -4,9 +4,11 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 //UI
 import Grid from 'material-ui/Grid'
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography'
 //Components
 import Post from '../components/Post'
-// import Comments from '../components/Comments'
+import Comment from '../components/Comment'
 //ACTIONS
 import { fetchPost } from '../actions/postsAction'
 import { fetchAllComments } from '../actions/commentsAction'
@@ -28,11 +30,21 @@ class SinglePost extends Component {
 
   cleanComment = () => {
     const { match:{params:{id}} } = this.props
-    const postComment = this.props.comments[id]
-    console.log(postComment)
-    return(
-      <h1>{id}</h1>
-    )
+    const postComments = this.props.comments[id]
+    if(postComments){
+      return (
+        postComments.map(comment => (
+          <Paper key={comment.id}>
+            <Comment {...comment}/>
+          </Paper>
+        ))
+      )
+    }
+    else{
+      return(
+        <Typography type="title" color="secondary">Be the first to leave a comment</Typography>
+      )
+    }
   }
   
   render(){

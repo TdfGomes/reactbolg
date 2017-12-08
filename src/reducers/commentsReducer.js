@@ -23,7 +23,7 @@ const comments = (state = {}, action) => {
 
   switch (action.type) {
     case REQUEST_ALL_COMMENTS:
-      return Object.assign(state, allComents)
+      return allComents
     default:
       return state
   }
