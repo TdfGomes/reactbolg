@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 //UI
 import IconButton from 'material-ui/IconButton'
@@ -10,9 +11,6 @@ import CommentIcon from 'material-ui-icons/Comment'
 import { fetchAllComments } from '../actions/commentsAction'
 
 class CommentsNumber extends Component {
-  state = {
-    postComments:0
-  }
   
   static propTypes = {
     comments: PropTypes.object.isRequired,
@@ -20,33 +18,27 @@ class CommentsNumber extends Component {
     postId:PropTypes.string.isRequired
   }
 
-  componentWillMount() {
-    const {getAllComments, comments, postId} = this.props
-
-    getAllComments().then(() => {
-      if(comments[postId]){
-        this.setState({
-          postComments:comments[postId].length
-        })
-      }
-    })
-
+  componentDidMount() {
+    const { getAllComments } = this.props
+    getAllComments()
   }
-
-  handleOnClick = (e) => {
-    console.log(e)
-  }
-
+    
   render(){
+    const {comments, postId} = this.props
+  
     return(
-      <div style={{paddingLeft:25}}>
-        <IconButton aria-label="commet-post" onClick={this.handleOnClick}>
-          <Badge badgeContent={this.state.postComments} color="primary">
-            <CommentIcon />
-          </Badge>
-          <Typography type="caption" style={{marginLeft:5}}>comments</Typography>
-        </IconButton>
-      </div>
+      <Link to={`/posts/${postId}`}>
+        <div style={{paddingLeft:25}}>
+          <IconButton aria-label="commet-post">
+            <Badge 
+              badgeContent={comments[postId] ? comments[postId].length : 0}
+              color="primary">
+              <CommentIcon />
+            </Badge>
+            <Typography type="caption" style={{marginLeft:5}}>comments</Typography>
+          </IconButton>
+        </div>
+      </Link>
     )
   }
 }

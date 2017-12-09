@@ -27,7 +27,7 @@ class SinglePost extends Component {
     getAllComments()
   }
 
-  cleanComment = () => {
+  postComments = () => {
     const { match:{params:{id}} } = this.props
     const postComments = this.props.comments[id]
     if(postComments){
@@ -51,7 +51,8 @@ class SinglePost extends Component {
           {Object.keys(activePost).length > 0 && <Post isSingle={true} {...activePost}/>}
         </Grid>
         <Grid item xs={12} sm={8}>
-          {this.cleanComment()}
+          <Typography type='title' color='secondary' style={{ margin: '25px 0' }}>Comments:</Typography>
+          {this.postComments()}
         </Grid>
       </Grid>
     )

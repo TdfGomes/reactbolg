@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 //UI
 import Tooltip from 'material-ui/Tooltip'
 import IconButton from 'material-ui/IconButton';
@@ -9,13 +9,17 @@ import DeleteIcon from 'material-ui-icons/Delete'
 
 
 class EditButtons extends Component {
+  static proptypes = {
+    edit:PropTypes.func.isRequired,
+    delete:PropTypes.func.isRequired,
+  }
 
   editOnClick = (e) => {
-    console.log(e)
+    this.props.edit(true)
   }
 
   removeOnClick = (e) => {
-    console.log(e)
+    this.props.delete(e)
   }
 
   render(){
