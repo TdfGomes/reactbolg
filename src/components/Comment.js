@@ -5,10 +5,13 @@ import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
+//UTILS
+import { editComment, fetchComments} from '../utils'
 //Components
 import VoteButtons from '../components/VoteButtons'
 import EditButtons from '../components/EditButtons'
 import EditComment from '../components/EditComment'
+
 
 const styles = (theme) => ({
   date: {
@@ -50,24 +53,28 @@ class Comment extends Component {
     timestamp: PropTypes.number.isRequired
   }
 
-  componentDidMount() {
-    this.setState({
-      body:this.props.body
-    })
-  }
-
   editComment = (e) => {
-    this.setState({edit:e})
-  }
-
-  handleClose = (e) => {
     this.setState({edit:e})
   }
 
   deleteComment = (e) => {
     console.log(e)
   }
-  
+
+  handleClose = (e) => {
+    this.setState({edit:e})
+  }
+  handleOnSubmit = (body) => {
+    const {classes, ...comment} = this.props
+    comment.body = body
+    
+    editComment(comment)
+      .then(com => fetchComments(com.parentId)
+        .then(res => console.log(res) )
+      )
+
+  }
+    
   render(){
     const { classes } = this.props
     const date = new Date(this.props.timestamp)
@@ -80,7 +87,7 @@ class Comment extends Component {
             <Typography type="subheading" className={classes.author} color="primary">{this.props.author}</Typography>
             <Typography type="subheading" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography>
           </div>
-          <Typography type="body1" className={classes.body}>{this.state.body}</Typography>
+          <Typography type="body1" className={classes.body}>{this.props.body}</Typography>
           <Grid container spacing={8} justify="space-between">
             <Grid item>
               <VoteButtons voteScore={this.props.voteScore} />
@@ -93,7 +100,9 @@ class Comment extends Component {
         <EditComment
           open={this.state.edit}
           close={this.handleClose}
-          body={this.state.body}
+          body={this.props.body}
+          id={this.props.id}
+          onSubmit={this.handleOnSubmit}
         />
       </div>
     )

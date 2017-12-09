@@ -7,7 +7,7 @@ const headers = {
   'Authorization': 'whatever-you-want'
 }
 
-//POSTS
+//GET POSTS
 export const getPosts = () => (
   fetch(`${URL}/posts`, {
     headers: {
@@ -23,9 +23,24 @@ export const getPost = (postid) => (
     }
   }).then(res => res.json())
 )
+//POST POST
+export const addPost = (post) => {
+  const result = {
+    id: uuidv4().replace(/-/g, ''),
+    timestamp: Date.now(),
+    ...post
+  }
+  return fetch(`${URL}/posts`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(result)
+  }).then(res => res.json())
+}
 
-
-//CATEGORIES
+//GET CATEGORIES
 export const getCategories = () => (
   fetch(`${URL}/categories`, {
     headers: {
@@ -33,7 +48,8 @@ export const getCategories = () => (
     }
   }).then(res => res.json())
 )
-//COMMENTS
+
+//GET COMMENTS
 export const fetchComments = (post_id) => ( 
   fetch(`${URL}/posts/${post_id}/comments`,{
     headers:{
@@ -51,21 +67,20 @@ export const getAllComments = () => {
       .then(comments => comments )
   )
 }
+//PUT COMMENTS
+export const editComment = (comment) => {
+  comment.timestamp = Date.now()
 
-//POST POST
-export const addPost = (post) => {
-  const result = {
-    id: uuidv4().replace(/-/g, ''),
-    timestamp: Date.now(),
-    ...post
-  }
-  return fetch(`${URL}/posts`, {
-    method: 'POST',
+  return fetch(`${URL}/comments/${comment.id}`, {
+    method: 'PUT',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(result)
-  }).then(res => res.json())
+    body: JSON.stringify(comment)
+  })
+  .then(res => res.json())
 }
+
+
 

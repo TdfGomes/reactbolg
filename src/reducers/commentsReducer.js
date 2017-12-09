@@ -1,4 +1,4 @@
-import { REQUEST_ALL_COMMENTS } from "../actions/actionTypes";
+import { REQUEST_ALL_COMMENTS, UPDATE_COMMENT } from "../actions/actionTypes";
 
 const comments = (state = {}, action) => {
   let allComents = {}
@@ -24,6 +24,8 @@ const comments = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_ALL_COMMENTS:
       return allComents
+    case UPDATE_COMMENT :
+      return action.sate
     default:
       return state
   }

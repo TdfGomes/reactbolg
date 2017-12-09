@@ -9,7 +9,6 @@ import Dialog, {
 } from 'material-ui/Dialog'
 import Slide from 'material-ui/transitions/Slide'
 
-
 function Transition(props) {
   return <Slide direction="down" {...props} />;
 }
@@ -26,15 +25,24 @@ class EditComment extends Component {
   static propTypes = {
     body:PropTypes.string.isRequired,
     close: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired
+    id: PropTypes.string.isRequired,
+    open: PropTypes.bool.isRequired,
+    onSubmit: PropTypes.func.isRequired
   }
   
   componentDidMount() {
-    this.setState({body:this.props.body})
+   this.setState({body:this.props.body})
   }
 
   handleOnSubmit = (e) => {
-
+    e.preventDefault()
+    this.props.onSubmit(this.state.body)
+  }
+  
+  handleOnChange = (e) => {
+    this.setState({
+      body:e.target.value
+    })
   }
   
   render(){
@@ -51,6 +59,7 @@ class EditComment extends Component {
               id="body"
               label="Comment"
               value={this.state.body}
+              onChange={this.handleOnChange}
               margin='normal'
               fullWidth
               multiline
@@ -59,7 +68,7 @@ class EditComment extends Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={ (e) => this.props.close(false) } color="primary">Cancel</Button>
-            <Button color="primary" aria-label="submit" type="submit">Submit</Button>
+            <Button onClick={(e) => this.props.close(false)} color="primary" aria-label="submit" type="submit">Submit</Button>
           </DialogActions>
         </form>
       </Dialog>
