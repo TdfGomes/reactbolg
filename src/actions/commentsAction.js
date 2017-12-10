@@ -18,6 +18,6 @@ export const updateComment = (comment) => ({
   comment
 })
 
-export const putComment = (id,body) => dispatch => (
-  editComment(id,body).then(comment => dispatch(updateComment(comment)))
+export const putComment = (com) => dispatch => (
+  editComment(com).then(comment => dispatch(updateComment(comment)))
 )

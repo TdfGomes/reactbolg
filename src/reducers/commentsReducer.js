@@ -1,4 +1,5 @@
-import { REQUEST_ALL_COMMENTS, UPDATE_COMMENT } from "../actions/actionTypes";
+import { REQUEST_ALL_COMMENTS, UPDATE_COMMENT } from "../actions/actionTypes"
+
 
 const comments = (state = {}, action) => {
   let allComents = {}
@@ -25,7 +26,8 @@ const comments = (state = {}, action) => {
     case REQUEST_ALL_COMMENTS:
       return allComents
     case UPDATE_COMMENT :
-      return action.sate
+      const upComment = Object.assign(state[action.comment.parentId],[action.comment])
+      return { ...state, [action.comment.parentId]: upComment}    
     default:
       return state
   }

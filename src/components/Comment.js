@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {connect } from 'react-redux'
 //UI
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 //UTILS
-import { editComment, fetchComments} from '../utils'
+// import { editComment, fetchComments} from '../utils'
+import { updateComment } from '../actions/commentsAction'
 //Components
 import VoteButtons from '../components/VoteButtons'
 import EditButtons from '../components/EditButtons'
@@ -40,7 +42,6 @@ class Comment extends Component {
     super(props)
 
     this.state = {
-      body:'',
       edit:false
     }
   }
@@ -65,14 +66,10 @@ class Comment extends Component {
     this.setState({edit:e})
   }
   handleOnSubmit = (body) => {
-    const {classes, ...comment} = this.props
+    const { classes, puComment, ...comment} = this.props
     comment.body = body
     
-    editComment(comment)
-      .then(com => fetchComments(com.parentId)
-        .then(res => console.log(res) )
-      )
-
+    this.props.puComment(comment)
   }
     
   render(){
@@ -109,5 +106,8 @@ class Comment extends Component {
   }
 } 
 
+const mapDispatchToProps = (dispatch) => ({
+  puComment: (comment) => dispatch(updateComment(comment))
+})
 
-export default withStyles(styles)(Comment)
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Comment))
