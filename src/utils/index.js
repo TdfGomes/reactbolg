@@ -68,19 +68,30 @@ export const getAllComments = () => {
   )
 }
 //PUT COMMENTS
-  export const editComment = (comment) => {
-    comment.timestamp = Date.now()
-    
-    return fetch(`${URL}/comments/${comment.id}`, {
-      method: 'PUT',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(comment)
-    })
-    .then(res => res.json())
-  }
+export const editComment = (comment) => {
+  comment.timestamp = Date.now()
+  
+  return fetch(`${URL}/comments/${comment.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(comment)
+  })
+  .then(res => res.json())
+}
+//DELETE COMMENTS
+export const deleteComment = (id) => {
+  comment.timestamp = Date.now()
 
+  return fetch(`${URL}/comments/${id}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+    }
+  })
+    .then(res => res.json())
+}
 
 
