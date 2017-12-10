@@ -82,16 +82,15 @@ export const editComment = (comment) => {
   .then(res => res.json())
 }
 //DELETE COMMENTS
-export const deleteComment = (id) => {
-  comment.timestamp = Date.now()
-
-  return fetch(`${URL}/comments/${id}`, {
+export const deleteComment = (id) => (
+  fetch(`${URL}/comments/${id}`, {
     method: 'DELETE',
     headers: {
       ...headers,
     }
   })
     .then(res => res.json())
-}
+    .then(data => data)
+)
 
 
