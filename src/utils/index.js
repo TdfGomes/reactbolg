@@ -56,8 +56,6 @@ export const getAllComments = () => {
 //PUT COMMENTS
 export const editComment = (comment) => {
   comment.timestamp = Date.now()
-  console.log(comment)
-
   return fetch(`${URL}/comments/${comment.id}`, {
     method: 'PUT',
     headers,
@@ -70,10 +68,8 @@ export const editComment = (comment) => {
 export const deleteComment = (id) => (
   fetch(`${URL}/comments/${id}`, {
     method: 'DELETE',
-    headers,
-  })
-    .then(res => res.json())
-    .then(data => data)
+    headers: { 'Authorization': 'pvicXidvqcXZ'},
+  }).then(res => res.json())
 )
 
 

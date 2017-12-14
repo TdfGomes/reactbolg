@@ -7,12 +7,12 @@ import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 //UTILS
-// import { editComment, fetchComments} from '../utils'
 import { putComment } from '../actions/commentsAction'
 //Components
 import VoteButtons from '../components/VoteButtons'
 import EditButtons from '../components/EditButtons'
 import EditComment from '../components/EditComment'
+import RemoveComment from '../components/RemoveComment'
 
 
 const styles = (theme) => ({
@@ -42,7 +42,8 @@ class Comment extends Component {
     super(props)
 
     this.state = {
-      edit:false
+      edit:false,
+      remove:false
     }
   }
 
@@ -58,15 +59,15 @@ class Comment extends Component {
     this.setState({edit:e})
   }
 
-  deleteComment = (e) => {
-    console.log(e)
+  handleDeleteComment = (e) => {
+    this.setState({ remove: e })
   }
 
-  handleClose = (e) => {
-    this.setState({edit:e})
+  handleClose = (modalWindow) => (event) => {
+    this.setState({[modalWindow]:event})
   }
   handleOnSubmit = (body) => {
-    const { classes, editComment, ...comment} = this.props
+    const { classes, editComment, deleteComment, ...comment} = this.props
     comment.body = body
     
     this.props.editComment(comment)
@@ -90,16 +91,21 @@ class Comment extends Component {
               <VoteButtons voteScore={this.props.voteScore} />
             </Grid>
             <Grid item>
-              <EditButtons edit={this.handleEditComment} delete={this.deleteComment}/>
+              <EditButtons edit={this.handleEditComment} delete={this.handleDeleteComment}/>
             </Grid>
           </Grid>
         </Paper>
         <EditComment
           open={this.state.edit}
-          close={this.handleClose}
+          close={this.handleClose('edit')}
           body={this.props.body}
           id={this.props.id}
           onSubmit={this.handleOnSubmit}
+        />
+        <RemoveComment
+          open={this.state.remove}
+          close={this.handleClose('remove')} 
+          id={this.props.id}
         />
       </div>
     )
@@ -107,7 +113,7 @@ class Comment extends Component {
 } 
 
 const mapDispatchToProps = (dispatch) => ({
-  editComment: (comment) => dispatch(putComment(comment))
+  editComment: (comment) => dispatch(putComment(comment)),
 })
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Comment))

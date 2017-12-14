@@ -1,4 +1,7 @@
-import { REQUEST_ALL_COMMENTS, UPDATE_COMMENT } from "../actions/actionTypes"
+import {
+  REQUEST_ALL_COMMENTS,
+  UPDATE_COMMENT,
+  DELETE_COMMENT } from "../actions/actionTypes"
 
 
 const comments = (state = {}, action) => {
@@ -26,9 +29,11 @@ const comments = (state = {}, action) => {
     case REQUEST_ALL_COMMENTS:
       return allComents
     case UPDATE_COMMENT :
-      console.log(action.comment)
-      const upComment = Object.assign(state[action.comment.parentId],[action.comment])
-      return { ...state, [action.comment.parentId]: upComment}    
+    const upComment = Object.assign(state[action.comment.parentId],[action.comment])
+    return { ...state, [action.comment.parentId]: upComment}    
+    case DELETE_COMMENT :
+      console.log(action)
+      return state
     default:
       return state
   }

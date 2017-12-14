@@ -1,4 +1,7 @@
-import { REQUEST_ALL_COMMENTS, UPDATE_COMMENT } from './actionTypes'
+import {
+  REQUEST_ALL_COMMENTS,
+  UPDATE_COMMENT,
+  DELETE_COMMENT } from './actionTypes'
 import { getAllComments, editComment } from '../utils'
 
 //GET COMMENTS
@@ -12,7 +15,6 @@ export const fetchAllComments = () => dispatch => (
 )
 
 //PUT COMMENTS
-
 export const updateComment = (comment) => ({
   type: UPDATE_COMMENT,
   comment
@@ -21,3 +23,21 @@ export const updateComment = (comment) => ({
 export const putComment = (com) => dispatch => (
   editComment(com).then(comment => dispatch(updateComment(comment)))
 )
+
+//DELETE COMMENTS
+export const deleteComment = (comment) => {
+  console.log(comment)
+  return{
+    type: DELETE_COMMENT,
+    comment
+  }
+}
+
+export const removeComment = (id) => dispatch => {
+  console.log(id)
+  return deleteComment(id).then(commentId => {
+    console.log(commentId)
+    return dispatch(deleteComment(commentId))
+  })
+}
+
