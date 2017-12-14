@@ -26,6 +26,7 @@ const comments = (state = {}, action) => {
     case REQUEST_ALL_COMMENTS:
       return allComents
     case UPDATE_COMMENT :
+      console.log(action.comment)
       const upComment = Object.assign(state[action.comment.parentId],[action.comment])
       return { ...state, [action.comment.parentId]: upComment}    
     default:

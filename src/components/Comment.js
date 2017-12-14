@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect } from 'react-redux'
+import { connect } from 'react-redux'
 //UI
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
@@ -8,7 +8,7 @@ import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 //UTILS
 // import { editComment, fetchComments} from '../utils'
-import { updateComment } from '../actions/commentsAction'
+import { putComment } from '../actions/commentsAction'
 //Components
 import VoteButtons from '../components/VoteButtons'
 import EditButtons from '../components/EditButtons'
@@ -54,7 +54,7 @@ class Comment extends Component {
     timestamp: PropTypes.number.isRequired
   }
 
-  editComment = (e) => {
+  handleEditComment = (e) => {
     this.setState({edit:e})
   }
 
@@ -66,10 +66,10 @@ class Comment extends Component {
     this.setState({edit:e})
   }
   handleOnSubmit = (body) => {
-    const { classes, puComment, ...comment} = this.props
+    const { classes, editComment, ...comment} = this.props
     comment.body = body
     
-    this.props.puComment(comment)
+    this.props.editComment(comment)
   }
     
   render(){
@@ -90,7 +90,7 @@ class Comment extends Component {
               <VoteButtons voteScore={this.props.voteScore} />
             </Grid>
             <Grid item>
-              <EditButtons edit={this.editComment} delete={this.deleteComment}/>
+              <EditButtons edit={this.handleEditComment} delete={this.deleteComment}/>
             </Grid>
           </Grid>
         </Paper>
@@ -107,7 +107,7 @@ class Comment extends Component {
 } 
 
 const mapDispatchToProps = (dispatch) => ({
-  puComment: (comment) => dispatch(updateComment(comment))
+  editComment: (comment) => dispatch(putComment(comment))
 })
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Comment))

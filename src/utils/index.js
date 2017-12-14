@@ -1,27 +1,22 @@
-import fetch from 'isomorphic-fetch' 
+// import fetch from 'isomorphic-fetch' 
 import uuidv4 from 'uuid'
 
 const URL = "http://localhost:3001"
 const headers = {
   'Accept': 'application/json',
-  'Authorization': 'whatever-you-want'
+  'Authorization': 'pvicXidvqcXZ',
+  "Content-Type": "application/json"
 }
 
 //GET POSTS
 export const getPosts = () => (
-  fetch(`${URL}/posts`, {
-    headers: {
-      ...headers
-    }
-  }).then(res => res.json())
+  fetch(`${URL}/posts`, {headers})
+  .then(res => res.json())
 )
 
 export const getPost = (postid) => (
-  fetch(`${URL}/posts/${postid}`, {
-    headers: {
-      ...headers
-    }
-  }).then(res => res.json())
+  fetch(`${URL}/posts/${postid}`, {headers})
+  .then(res => res.json())
 )
 //POST POST
 export const addPost = (post) => {
@@ -32,30 +27,21 @@ export const addPost = (post) => {
   }
   return fetch(`${URL}/posts`, {
     method: 'POST',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify(result)
   }).then(res => res.json())
 }
 
 //GET CATEGORIES
 export const getCategories = () => (
-  fetch(`${URL}/categories`, {
-    headers: {
-      ...headers
-    }
-  }).then(res => res.json())
+  fetch(`${URL}/categories`, {headers})
+  .then(res => res.json())
 )
 
 //GET COMMENTS
 export const fetchComments = (post_id) => ( 
-  fetch(`${URL}/posts/${post_id}/comments`,{
-    headers:{
-      ...headers
-    }
-  }).then(res => res.json())  
+  fetch(`${URL}/posts/${post_id}/comments`,{headers})
+  .then(res => res.json())  
 )
 
 export const getAllComments = () => {
@@ -70,24 +56,21 @@ export const getAllComments = () => {
 //PUT COMMENTS
 export const editComment = (comment) => {
   comment.timestamp = Date.now()
-  
+  console.log(comment)
+
   return fetch(`${URL}/comments/${comment.id}`, {
     method: 'PUT',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify(comment)
   })
   .then(res => res.json())
 }
+
 //DELETE COMMENTS
 export const deleteComment = (id) => (
   fetch(`${URL}/comments/${id}`, {
     method: 'DELETE',
-    headers: {
-      ...headers,
-    }
+    headers,
   })
     .then(res => res.json())
     .then(data => data)
