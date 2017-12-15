@@ -2,7 +2,7 @@ import {
   REQUEST_ALL_COMMENTS,
   UPDATE_COMMENT,
   DELETE_COMMENT } from './actionTypes'
-import { getAllComments, editComment } from '../utils'
+import { getAllComments, editComment, deleteCommentById } from '../utils'
 
 //GET COMMENTS
 export const requestAllComments = (comments) => ({
@@ -25,19 +25,12 @@ export const putComment = (com) => dispatch => (
 )
 
 //DELETE COMMENTS
-export const deleteComment = (comment) => {
-  console.log(comment)
-  return{
-    type: DELETE_COMMENT,
-    comment
-  }
-}
+export const deleteComment = (comment) => ({
+  type: DELETE_COMMENT,
+  comment
+})
 
-export const removeComment = (id) => dispatch => {
-  console.log(id)
-  return deleteComment(id).then(commentId => {
-    console.log(commentId)
-    return dispatch(deleteComment(commentId))
-  })
-}
+export const removeComment = (id) => dispatch => (
+  deleteCommentById(id).then(commentId => dispatch( deleteComment(commentId)) )
+)
 

@@ -65,11 +65,12 @@ export const editComment = (comment) => {
 }
 
 //DELETE COMMENTS
-export const deleteComment = (id) => (
+export const deleteCommentById = (id) => (
   fetch(`${URL}/comments/${id}`, {
     method: 'DELETE',
     headers: { 'Authorization': 'pvicXidvqcXZ'},
   }).then(res => res.json())
+    .then(data => data)
 )
 
 

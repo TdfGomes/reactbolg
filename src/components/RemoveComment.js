@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { removeComment } from '../actions/commentsAction'
+//UI
 import Button from 'material-ui/Button'
 import Dialog, {
   DialogActions,
@@ -8,13 +11,11 @@ import Dialog, {
 } from 'material-ui/Dialog'
 
 class RemoveComment extends Component {
-  
-  componentDidMount() {
-    console.log(typeof this.props.open)
+  handleClick = () => {
+    this.props.deleteComment(this.props.id)
+    this.props.close(false)
   }
   
-
-
   render() {
     return (
       <Dialog
@@ -22,14 +23,18 @@ class RemoveComment extends Component {
         onRequestClose={(e) => this.props.close(false)}
       >
         <DialogTitle>ATTENTION:</DialogTitle>
-          <DialogContent >Are you sure that you want to remove this comment ?</DialogContent>
+          <DialogContent >Are you sure you want to remove this comment ?</DialogContent>
           <DialogActions>
-            <Button onClick={(e) => this.props.close(false)} color="primary">Cancel</Button>
-            <Button onClick={(e) => this.props.close(false)} color="primary">Yes</Button>
+            <Button onClick={() => this.props.close(false)} color="primary">Cancel</Button>
+            <Button onClick={this.handleClick} color="primary">Yes</Button>
           </DialogActions>
       </Dialog>
     )
   }
 }
 
-export default RemoveComment
+const mapDispatchToProps = (dispatch) => ({
+  deleteComment: (id) => dispatch(removeComment(id)),
+})
+
+export default connect(null, mapDispatchToProps)(RemoveComment)

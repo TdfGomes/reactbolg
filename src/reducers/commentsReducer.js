@@ -29,11 +29,15 @@ const comments = (state = {}, action) => {
     case REQUEST_ALL_COMMENTS:
       return allComents
     case UPDATE_COMMENT :
-    const upComment = Object.assign(state[action.comment.parentId],[action.comment])
+    // const upComment = Object.assign(state[action.comment.parentId],[action.comment])
+    const upComment = state[action.comment.parentId].filter(com => com.id !== action.comment.id).concat(action.comment)
+    // console.log(action.comment)
     return { ...state, [action.comment.parentId]: upComment}    
     case DELETE_COMMENT :
-      console.log(action)
-      return state
+      const comments = Object.assign(state[action.comment.parentId], [action.comment])
+      const newState = comments.filter(comment => comment.id !== action.comment.id)
+      
+      return { ...state, [action.comment.parentId]: newState }
     default:
       return state
   }

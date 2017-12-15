@@ -43,7 +43,7 @@ class Comment extends Component {
 
     this.state = {
       edit:false,
-      remove:false
+      delete:false
     }
   }
 
@@ -60,7 +60,7 @@ class Comment extends Component {
   }
 
   handleDeleteComment = (e) => {
-    this.setState({ remove: e })
+    this.setState({ delete: e })
   }
 
   handleClose = (modalWindow) => (event) => {
@@ -91,7 +91,7 @@ class Comment extends Component {
               <VoteButtons voteScore={this.props.voteScore} />
             </Grid>
             <Grid item>
-              <EditButtons edit={this.handleEditComment} delete={this.handleDeleteComment}/>
+              <EditButtons mode="Comment" edit={this.handleEditComment} delete={this.handleDeleteComment}/>
             </Grid>
           </Grid>
         </Paper>
@@ -103,8 +103,8 @@ class Comment extends Component {
           onSubmit={this.handleOnSubmit}
         />
         <RemoveComment
-          open={this.state.remove}
-          close={this.handleClose('remove')} 
+          open={this.state.delete}
+          close={this.handleClose('delete')} 
           id={this.props.id}
         />
       </div>

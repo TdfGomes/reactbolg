@@ -12,6 +12,7 @@ class EditButtons extends Component {
   static proptypes = {
     edit:PropTypes.func.isRequired,
     delete:PropTypes.func.isRequired,
+    mode:PropTypes.string.isRequired
   }
 
   editOnClick = (e) => {
@@ -19,18 +20,18 @@ class EditButtons extends Component {
   }
 
   removeOnClick = (e) => {
-    this.props.delete(e)
+    this.props.delete(true)
   }
 
   render(){
     return(
       <div>
-        <Tooltip id="delete" title="Edit Post" placement="bottom">
+        <Tooltip id="delete" title={`Edit ${this.props.mode}`} placement="bottom">
           <IconButton aria-label="edit-post" onClick={this.editOnClick}>
             <ModeEditIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip id="delete" title="Delete Post" placement="bottom">
+        <Tooltip id="delete" title={`Delete ${this.props.mode}`} placement="bottom">
           <IconButton aria-label="delete-post" onClick={this.removeOnClick}>
             <DeleteIcon />
           </IconButton>

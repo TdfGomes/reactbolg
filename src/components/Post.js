@@ -76,7 +76,7 @@ class Post extends Component {
         </CardContent>
         <CardActions classes={{root:classes.cardActionsRoot}}>
           <VoteButtons voteScore={this.props.voteScore}/>
-          {this.props.isSingle && <EditButtons edit={this.editPost} delete={this.deletePost}/>}
+          {this.props.isSingle && <EditButtons mode="Post" edit={this.editPost} delete={this.deletePost}/>}
         </CardActions>
       </Card>
     )
