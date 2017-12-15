@@ -82,5 +82,18 @@ export const voteComment = (commentId,option) => (
   })
     .then(res => res.json())
 )
+//CREAT COMMENTS
+export const addComment = (comment) => {
+  const result = {
+    id: uuidv4().replace(/-/g, ''),
+    timestamp: Date.now(),
+    ...comment
+  }
+  return fetch(`${URL}/comments`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(result)
+  }).then(res => res.json())
+}
 
 

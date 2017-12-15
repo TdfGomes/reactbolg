@@ -12,3 +12,15 @@ body {
   background-color:#1cbbd7!important;
   color:#fff!important;
 }
+
+.innerForm_entering {
+  opacity: 0!important;
+  -webkit-transform: translateY(-30%)!important;
+          transform: translateY(-30%)!important;
+}
+
+.innerForm_entered {
+  opacity: 1!important;
+  -webkit-transform: translateY(0%)!important;
+          transform: translateY(0%)!important;
+}

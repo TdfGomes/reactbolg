@@ -2,7 +2,8 @@ import {
   REQUEST_ALL_COMMENTS,
   UPDATE_COMMENT,
   VOTE_POST_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  CREATE_COMMENT
 } from "../actions/actionTypes"
 
 
@@ -30,6 +31,14 @@ const comments = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_ALL_COMMENTS:
       return allComents
+    case CREATE_COMMENT:
+      return {
+        ...state,
+        [action.comment.parentId]: [
+          ...state[action.comment.parentId],
+          action.comment
+        ]
+      }
     case UPDATE_COMMENT :
     const upComment = state[action.comment.parentId].map(com => {
       if(com.id !== action.comment.id){
@@ -51,8 +60,7 @@ const comments = (state = {}, action) => {
     })
     return { ...state, [action.comment.parentId]: votedComment }
     case DELETE_COMMENT :
-      const comments = Object.assign(state[action.comment.parentId], [action.comment])
-      const newState = comments.filter(comment => comment.id !== action.comment.id) 
+      const newState = Object.assign(state[action.comment.parentId], [action.comment]).filter(comment => comment.id !== action.comment.id) 
       return { ...state, [action.comment.parentId]: newState }
     default:
       return state
