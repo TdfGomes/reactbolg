@@ -51,8 +51,12 @@ class Comment extends Component {
     autthor: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
+    deleted:PropTypes.bool,
+    editComment:PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
-    timestamp: PropTypes.number.isRequired
+    parentId:PropTypes.string,
+    timestamp: PropTypes.number.isRequired,
+    voteScore:PropTypes.number
   }
 
   handleEditComment = (e) => {
@@ -66,6 +70,8 @@ class Comment extends Component {
   handleClose = (modalWindow) => (event) => {
     this.setState({[modalWindow]:event})
   }
+  
+
   handleOnSubmit = (body) => {
     const { classes, editComment, deleteComment, ...comment} = this.props
     comment.body = body
@@ -88,7 +94,7 @@ class Comment extends Component {
           <Typography type="body1" className={classes.body}>{this.props.body}</Typography>
           <Grid container spacing={8} justify="space-between">
             <Grid item>
-              <VoteButtons voteScore={this.props.voteScore} />
+              <VoteButtons mode="Comment" id={this.props.id} voteScore={this.props.voteScore} />
             </Grid>
             <Grid item>
               <EditButtons mode="Comment" edit={this.handleEditComment} delete={this.handleDeleteComment}/>

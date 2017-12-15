@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { commentVote } from '../actions/commentsAction'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Button from 'material-ui/Button';
 import ThumbUpIcon from 'material-ui-icons/ThumbUp'
 import ThumbDownIcon from 'material-ui-icons/ThumbDown'
+// import { voteComment } from '../utils'
 
 const styles = theme => ({
   buttonFlex:{
@@ -36,15 +39,20 @@ class VoteButtons extends Component {
 
   static propTypes = {
     classes:PropTypes.object.isRequired,
-    voteScore:PropTypes.number.isRequired
+    voteScore:PropTypes.number.isRequired,
+    mode:PropTypes.string.isRequired,
+    id:PropTypes.string.isRequired
   }
 
-  addVote = (e) => {
-    console.log(e.target)
-  }
+  handleVote = (vote) => (e) => {
+    this.props.voteComment(this.props.id, { option: vote })
+    
+    if(this.props.mode === 'Post'){
 
-  removeVote = (e) => {
-    console.log(e.target)
+    }
+    else {
+      return { option: vote }
+    }
   }
 
   render(){
@@ -53,13 +61,13 @@ class VoteButtons extends Component {
     return(
       <div className={classes.buttonFlex}>
         <div className={classes.buttonFlex}>
-          <Button fab aria-label="add" classes={{fab:classes.fabButton,raised:classes.buttonAdd}} onClick={this.addVote}>
+          <Button fab aria-label="add" classes={{ fab: classes.fabButton, raised: classes.buttonAdd }} onClick={this.handleVote('upVote')}>
             <ThumbUpIcon / >
           </Button>
           <span className={classes.voteNumber}>{this.props.voteScore}</span>
         </div>
         <div className={classes.buttonFlex}>
-          <Button fab aria-label="remove" classes={{ fab: classes.fabButton, raised: classes.buttonRemove}} onClick={this.removeVote}>
+          <Button fab aria-label="remove" classes={{ fab: classes.fabButton, raised: classes.buttonRemove }} onClick={this.handleVote('downVote')}>
             <ThumbDownIcon / >
           </Button>
         </div>
@@ -68,4 +76,8 @@ class VoteButtons extends Component {
   }
 }
 
-export default withStyles(styles)(VoteButtons)
+const mapDispatchToProps = (dispatch) => ({
+  voteComment: (id, option) => dispatch(commentVote(id,option))
+})
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(VoteButtons))

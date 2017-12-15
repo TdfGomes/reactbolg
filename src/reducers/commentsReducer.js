@@ -1,7 +1,9 @@
 import {
   REQUEST_ALL_COMMENTS,
   UPDATE_COMMENT,
-  DELETE_COMMENT } from "../actions/actionTypes"
+  VOTE_POST_COMMENT,
+  DELETE_COMMENT
+} from "../actions/actionTypes"
 
 
 const comments = (state = {}, action) => {
@@ -29,7 +31,6 @@ const comments = (state = {}, action) => {
     case REQUEST_ALL_COMMENTS:
       return allComents
     case UPDATE_COMMENT :
-    // const upComment = Object.assign(state[action.comment.parentId],[action.comment])
     const upComment = state[action.comment.parentId].map(com => {
       if(com.id !== action.comment.id){
         return com
@@ -38,13 +39,20 @@ const comments = (state = {}, action) => {
         return action.comment
       }
     })
-    console.log(upComment)
     return { ...state, [action.comment.parentId]: upComment}    
-    // return state
+    case VOTE_POST_COMMENT :
+    const votedComment = state[action.comment.parentId].map(com => {
+      if(com.id !== action.comment.id){
+        return com
+      }
+      else{
+        return action.comment
+      }
+    })
+    return { ...state, [action.comment.parentId]: votedComment }
     case DELETE_COMMENT :
       const comments = Object.assign(state[action.comment.parentId], [action.comment])
-      const newState = comments.filter(comment => comment.id !== action.comment.id)
-      
+      const newState = comments.filter(comment => comment.id !== action.comment.id) 
       return { ...state, [action.comment.parentId]: newState }
     default:
       return state

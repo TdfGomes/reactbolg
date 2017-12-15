@@ -73,4 +73,14 @@ export const deleteCommentById = (id) => (
     .then(data => data)
 )
 
+//VOTE COMMENTS
+export const voteComment = (commentId,option) => (
+  fetch(`${URL}/comments/${commentId}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(option)
+  })
+    .then(res => res.json())
+)
+
 
