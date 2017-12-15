@@ -77,6 +77,11 @@ class SinglePost extends Component {
         author,
         body,
         parentId:id
+      }).then(() => {
+        this.setState({
+          body:'',
+          author:''
+        })
       })
     }
   }
