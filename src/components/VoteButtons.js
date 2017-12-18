@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { postVote } from '../actions/postsAction'
 import { commentVote } from '../actions/commentsAction'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Button from 'material-ui/Button';
 import ThumbUpIcon from 'material-ui-icons/ThumbUp'
 import ThumbDownIcon from 'material-ui-icons/ThumbDown'
-// import { voteComment } from '../utils'
+
 
 const styles = theme => ({
   buttonFlex:{
@@ -45,13 +46,12 @@ class VoteButtons extends Component {
   }
 
   handleVote = (vote) => (e) => {
-    this.props.voteComment(this.props.id, { option: vote })
     
     if(this.props.mode === 'Post'){
-
+      this.props.votePost(this.props.id,{option:vote})
     }
     else {
-      return { option: vote }
+      this.props.voteComment(this.props.id, { option: vote })
     }
   }
 
@@ -77,6 +77,7 @@ class VoteButtons extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  votePost: (id, option) => dispatch(postVote(id, option)),
   voteComment: (id, option) => dispatch(commentVote(id,option))
 })
 

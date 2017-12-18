@@ -1,11 +1,13 @@
 import { 
   REQUEST_POSTS,
   REQUEST_POST,
-  CREATE_POST } from './actionTypes'
+  CREATE_POST,
+  VOTE_POST } from './actionTypes'
 import { 
   getPosts,
   getPost,
-  addPost } from '../utils'
+  addPost,
+  vote_Post } from '../utils'
 
 //get posts data
 export const requestPosts = (posts) => ({
@@ -22,6 +24,14 @@ export const createPost = (post) => ({
 })
 export const addNewPost = (data) => dispatch => (
   addPost(data).then(postData => dispatch(createPost(postData)))
+)
+//Vote Pots
+export const votePost = (post) => ({
+  type:VOTE_POST,
+  post,
+})
+export const postVote = (postId, option) => dispatch => (
+  vote_Post(postId,option).then(post => dispatch(votePost(post)))
 )
 
 //get single post

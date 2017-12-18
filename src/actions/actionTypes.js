@@ -3,8 +3,7 @@ export const REQUEST_POSTS        = 'REQUEST_POSTS'
 export const CREATE_POST          = 'CREATE_POST'
 export const UPDATE_POST          = 'UPDATE_POST'
 export const DELETE_POST          = 'DELETE_POST'
-export const LIKE_POST            = 'LIKE_POST'
-export const UNLIKE_POST          = 'UNLIKE_POST'
+export const VOTE_POST            = 'VOTE_POST'
 //SINGLE POST
 export const REQUEST_POST         = 'REQUEST_POST'
 //CATEGORIES

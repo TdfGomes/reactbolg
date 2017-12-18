@@ -31,7 +31,15 @@ export const addPost = (post) => {
     body: JSON.stringify(result)
   }).then(res => res.json())
 }
-
+//VOTE POST
+export const vote_Post = (postId, option) => (
+  fetch(`${URL}/posts/${postId}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(option)
+  })
+    .then(res => res.json())
+)
 //GET CATEGORIES
 export const getCategories = () => (
   fetch(`${URL}/categories`, {headers})
