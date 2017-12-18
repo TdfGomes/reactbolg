@@ -32,6 +32,11 @@ const comments = (state = {}, action) => {
     case REQUEST_ALL_COMMENTS:
       return allComents
     case CREATE_COMMENT:
+    if(!state[action.comment.parentId]){
+      Object.defineProperty(state, action.parentId, [action.comment])//create a new key if dont exist
+      return state
+    }
+    else {
       return {
         ...state,
         [action.comment.parentId]: [
@@ -39,6 +44,8 @@ const comments = (state = {}, action) => {
           action.comment
         ]
       }
+
+    }
     case UPDATE_COMMENT :
     const upComment = state[action.comment.parentId].map(com => {
       if(com.id !== action.comment.id){
