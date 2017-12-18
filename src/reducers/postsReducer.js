@@ -22,8 +22,16 @@ const posts = (state = [], action) => {
         }
       })
     case EDIT_POST:
-      console.log(action.post)
-      return state
+      return state.map(post => {
+        if (post.id !== action.post.id) {
+          return post
+        }
+        return {
+          ...post,
+          body: action.post.body,
+          title: action.post.title
+        }
+      })
     default:
       return state
   }

@@ -112,7 +112,6 @@ class Form extends Component{
               sentOk: true
             })
           )
-          .then(() => this.props.goTo('/'))
       }
     }
   }
@@ -194,7 +193,13 @@ class Form extends Component{
           SnackbarContentProps={{
             'aria-describedby': 'newPost',
           }}
-          message={<span id="newPost">You add a new post with sucess</span>}
+          onEntered={() => setTimeout(() => this.props.goTo('/'), 1000)}
+          message={
+            this.state.editMode ? 
+              <span id="newPost">You add a edit this post with sucess</span>
+            :
+              <span id="newPost">You add a new post with sucess</span>
+          }
         />
       </div>
     )
