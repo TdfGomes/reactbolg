@@ -40,6 +40,16 @@ export const vote_Post = (postId, option) => (
   })
     .then(res => res.json())
 )
+//PUT POST
+export const editPost = (post) => (
+  fetch(`${URL}/posts/${post.id}`, {
+     method: 'PUT',
+     headers,
+     body: JSON.stringify(post)
+   })
+   .then(res => res.json())
+)
+
 //GET CATEGORIES
 export const getCategories = () => (
   fetch(`${URL}/categories`, {headers})
@@ -90,7 +100,7 @@ export const voteComment = (commentId,option) => (
   })
     .then(res => res.json())
 )
-//CREAT COMMENTS
+//CREATE COMMENTS
 export const addComment = (comment) => {
   const result = {
     id: uuidv4().replace(/-/g, ''),

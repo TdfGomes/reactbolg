@@ -36,6 +36,15 @@ const styles = (theme) => ({
 
 
 class Post extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      delete: false
+    }
+
+  }
+
   static propTypes = {
     classes: PropTypes.object.isRequired,
     author: PropTypes.string.isRequired,
@@ -52,9 +61,6 @@ class Post extends Component {
   editPost = (e) => {
     console.log(e)
   }
-  deletePost = (e) => {
-    console.log(e)
-  }
 
   render(){
     const { classes } = this.props
@@ -67,7 +73,7 @@ class Post extends Component {
           <div>
             <Typography type="body1" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography>
             <Typography type="title" component="h2">
-              {!this.props.isSingle ? <Link to={`/posts/${this.props.id}`}>{this.props.title}</Link> :  this.props.title }
+              {!this.props.isSingle ? <Link to={`/posts/${this.props.id}`} style={{ textDecoration: 'none', color:'rgba(0, 0, 0, 0.87)'}}>{this.props.title}</Link> :  this.props.title }
             </Typography>
             <Typography type="subheading" className={classes.author}>{this.props.author}</Typography>
             <Typography type="body1" className={classes.body}>{this.props.body}</Typography>
@@ -76,7 +82,7 @@ class Post extends Component {
         </CardContent>
         <CardActions classes={{root:classes.cardActionsRoot}}>
           <VoteButtons id={this.props.id} mode="Post" voteScore={this.props.voteScore}/>
-          {this.props.isSingle && <EditButtons mode="Post" edit={this.editPost} delete={this.deletePost}/>}
+          {this.props.isSingle && <EditButtons mode="Post" postId={this.props.id} delete={this.deletePost}/>}
         </CardActions>
       </Card>
     )

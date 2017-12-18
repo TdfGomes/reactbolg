@@ -44,12 +44,6 @@ class SinglePost extends Component {
     }
   }
 
-  toggleEnterState = () => {
-    this.setState(({ show }) => ({
-      show: !show
-    }))
-  }
-
   static propTypes = {
     activePost: PropTypes.object.isRequired,
     comments: PropTypes.object.isRequired,
@@ -60,10 +54,16 @@ class SinglePost extends Component {
   }
 
   componentDidMount() {
-    const { getPost, getAllComments, match:{params:{id}} } = this.props
+    const { getPost, getAllComments, match: { params: { id } } } = this.props
 
     getPost(id)
     getAllComments()
+  }
+
+  toggleEnterState = () => {
+    this.setState(({ show }) => ({
+      show: !show
+    }))
   }
 
   handleOnSubmit = (e) => {

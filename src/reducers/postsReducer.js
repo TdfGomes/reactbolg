@@ -1,7 +1,8 @@
 import {
   REQUEST_POSTS,
   CREATE_POST,
-  VOTE_POST
+  VOTE_POST,
+  EDIT_POST
 } from "../actions/actionTypes";
 
 const posts = (state = [], action) => {
@@ -20,6 +21,9 @@ const posts = (state = [], action) => {
           voteScore:action.post.voteScore
         }
       })
+    case EDIT_POST:
+      console.log(action.post)
+      return state
     default:
       return state
   }

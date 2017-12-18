@@ -27,7 +27,7 @@ class CommentsNumber extends Component {
     const {comments, postId} = this.props
   
     return(
-      <Link to={`/posts/${postId}`}>
+      <Link to={`/posts/${postId}`} style={{textDecoration:'none'}}>
         <div style={{paddingLeft:25}}>
           <IconButton aria-label="commet-post">
             <Badge 

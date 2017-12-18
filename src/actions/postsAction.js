@@ -2,12 +2,14 @@ import {
   REQUEST_POSTS,
   REQUEST_POST,
   CREATE_POST,
-  VOTE_POST } from './actionTypes'
+  VOTE_POST,
+  EDIT_POST } from './actionTypes'
 import { 
   getPosts,
   getPost,
   addPost,
-  vote_Post } from '../utils'
+  vote_Post,
+  editPost, } from '../utils'
 
 //get posts data
 export const requestPosts = (posts) => ({
@@ -32,6 +34,14 @@ export const votePost = (post) => ({
 })
 export const postVote = (postId, option) => dispatch => (
   vote_Post(postId,option).then(post => dispatch(votePost(post)))
+)
+//edit Post
+export const edit_post = (post) => ({
+  type:EDIT_POST,
+  post,
+})
+export const putPost = (post) => dispatch => (
+  editPost(post).then(p => dispatch(edit_post(p)))
 )
 
 //get single post

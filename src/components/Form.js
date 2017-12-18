@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 //UTILS
-import { addNewPost } from '../actions/postsAction'
+import { 
+  addNewPost,
+  fetchPost,
+  putPost } from '../actions/postsAction'
 //UI
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid'
@@ -38,16 +41,35 @@ class Form extends Component{
       title:'',
       category:'',
       body:'',
-      sentOk: false
+      sentOk: false,
+      editMode:false
     }
 
   }
 
   static propTypes = {
+    activePost:PropTypes.object,
     classes:PropTypes.object.isRequired,
     createPost: PropTypes.func.isRequired,
-    categories: PropTypes.array.isRequired
+    getPost: PropTypes.func,
+    goTo: PropTypes.func,
+    categories: PropTypes.array.isRequired,
+    postId: PropTypes.string
   }
+  
+  componentWillMount() {
+    this.props.postId ? this.setState({editMode:true}) : this.setState({editMode:false})
+  }
+  
+  componentDidMount() {
+    if(this.state.editMode){
+      this.props.getPost(this.props.postId).then(() => {
+        const { author, body, category, title } = this.props.activePost
+        this.setState({author,body,category,title})
+      })   
+    }
+  }
+  
 
   handleChange = (inputName) => (event) => {
     this.setState({
@@ -57,23 +79,41 @@ class Form extends Component{
 
   handleOnSubmit = (e) => {
     e.preventDefault()
-    const { createPost } = this.props
+    const { createPost, editPost, activePost } = this.props
     const {author, title, category, body } = this.state
-    
-    if(author.length > 0 && body.length > 0 && category.length > 0 && title.length > 0){
-      createPost({
-        author,
-        body,
-        category,
-        title
-      })
-        .then( () => this.setState({
-          author: '',
-          title: '',
-          category: '',
-          body: '',
-          sentOk: true
-        }))
+    if(!this.props.postId){
+      if(author.length > 0 && body.length > 0 && category.length > 0 && title.length > 0){
+        createPost({
+          author,
+          body,
+          category,
+          title
+        })
+          .then( () => this.setState({
+            author: '',
+            title: '',
+            category: '',
+            body: '',
+            sentOk: true
+          }))
+      }
+    }
+    else {
+      if(body.length > 0 && title.length > 0){
+        activePost.body = this.state.body
+        activePost.title = this.state.title
+        
+        editPost(activePost)
+          .then( () => this.setState({
+              author: '',
+              title: '',
+              category: '',
+              body: '',
+              sentOk: true
+            })
+          )
+          .then(() => this.props.goTo('/'))
+      }
     }
   }
   
@@ -104,6 +144,7 @@ class Form extends Component{
                 onChange={this.handleChange('author')}
                 fullWidth
                 margin='normal'
+                disabled={this.state.editMode ? true : false}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -116,6 +157,7 @@ class Form extends Component{
                   native={false}
                   displayEmpty
                   multiple={false}
+                  disabled={this.state.editMode ? true : false}
                 >
                 {categories.map(option => (
                   <MenuItem key={option.name} value={option.name}>
@@ -158,9 +200,13 @@ class Form extends Component{
     )
   }
 }
-
+const mapStateToProps = (state) => ({
+  activePost: state.activePost,
+})
 const mapDispatchToProps = (dispatch) => ({
-  createPost: (data) => dispatch(addNewPost(data))
+  createPost: (data) => dispatch(addNewPost(data)),
+  getPost: (postId) => dispatch(fetchPost(postId)),
+  editPost: (post) => dispatch(putPost(post))
 })
 
-export default connect(null, mapDispatchToProps)( withStyles(styles)(Form) )
+export default connect(mapStateToProps, mapDispatchToProps)( withStyles(styles)(Form) )

@@ -12,7 +12,7 @@ import { putComment } from '../actions/commentsAction'
 import VoteButtons from '../components/VoteButtons'
 import EditButtons from '../components/EditButtons'
 import EditComment from '../components/EditComment'
-import RemoveComment from '../components/RemoveComment'
+import RemoveModal from '../components/RemoveModal'
 
 
 const styles = (theme) => ({
@@ -108,10 +108,11 @@ class Comment extends Component {
           id={this.props.id}
           onSubmit={this.handleOnSubmit}
         />
-        <RemoveComment
+        <RemoveModal
           open={this.state.delete}
           close={this.handleClose('delete')} 
           id={this.props.id}
+          mode="comment"
         />
       </div>
     )

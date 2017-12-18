@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 //UI
 import Tooltip from 'material-ui/Tooltip'
 import IconButton from 'material-ui/IconButton';
@@ -12,7 +13,8 @@ class EditButtons extends Component {
   static proptypes = {
     edit:PropTypes.func.isRequired,
     delete:PropTypes.func.isRequired,
-    mode:PropTypes.string.isRequired
+    mode:PropTypes.string.isRequired,
+    postId:PropTypes.string
   }
 
   editOnClick = (e) => {
@@ -26,11 +28,21 @@ class EditButtons extends Component {
   render(){
     return(
       <div>
-        <Tooltip id="delete" title={`Edit ${this.props.mode}`} placement="bottom">
+        {
+        this.props.mode === 'Comment' ? 
+        <Tooltip id="edit" title={`Edit ${this.props.mode}`} placement="bottom">
           <IconButton aria-label="edit-post" onClick={this.editOnClick}>
             <ModeEditIcon />
           </IconButton>
+        </Tooltip> :
+        <Tooltip id="edit" title={`Edit ${this.props.mode}`} placement="bottom">
+          <Link to={`/edit-post/${this.props.postId}`}>
+            <IconButton aria-label="edit-post">
+              <ModeEditIcon />
+            </IconButton>
+          </Link> 
         </Tooltip>
+        }
         <Tooltip id="delete" title={`Delete ${this.props.mode}`} placement="bottom">
           <IconButton aria-label="delete-post" onClick={this.removeOnClick}>
             <DeleteIcon />
