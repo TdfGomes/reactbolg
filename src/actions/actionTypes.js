@@ -5,6 +5,7 @@ export const UPDATE_POST          = 'UPDATE_POST'
 export const DELETE_POST          = 'DELETE_POST'
 export const VOTE_POST            = 'VOTE_POST'
 export const EDIT_POST            = 'EDIT_POST'
+export const SORT_POST            = 'SORT_POST'
 //SINGLE POST
 export const REQUEST_POST         = 'REQUEST_POST'
 //CATEGORIES

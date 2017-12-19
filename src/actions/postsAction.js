@@ -3,7 +3,8 @@ import {
   REQUEST_POST,
   CREATE_POST,
   VOTE_POST,
-  EDIT_POST } from './actionTypes'
+  EDIT_POST,
+  SORT_POST } from './actionTypes'
 import { 
   getPosts,
   getPost,
@@ -43,7 +44,17 @@ export const edit_post = (post) => ({
 export const putPost = (post) => dispatch => (
   editPost(post).then(p => dispatch(edit_post(p)))
 )
-
+//sort Posts
+export const sortPost = (posts) => ({
+  type: SORT_POST,
+  posts,
+})
+export const sortedPosts = (sortVal) => dispatch => (
+  getPosts().then(posts => {
+    console.warn(sortVal)
+    return dispatch( sortPost(posts) )
+  })
+)
 //get single post
 export const requestPost = (post) => ({
   type: REQUEST_POST,

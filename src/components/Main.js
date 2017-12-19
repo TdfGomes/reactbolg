@@ -9,7 +9,8 @@ import Post from './Post'
 class Main extends Component{
   
   static propTypes = {
-    posts:PropTypes.array.isRequired
+    posts:PropTypes.array.isRequired,
+    category:PropTypes.object.isRequired
   }
   
   componentDidMount() {

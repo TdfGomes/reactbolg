@@ -2,7 +2,8 @@ import {
   REQUEST_POSTS,
   CREATE_POST,
   VOTE_POST,
-  EDIT_POST
+  EDIT_POST,
+  SORT_POST
 } from "../actions/actionTypes";
 
 const posts = (state = [], action) => {
@@ -32,6 +33,9 @@ const posts = (state = [], action) => {
           title: action.post.title
         }
       })
+    case SORT_POST:
+      // console.log(action.posts)
+      return action.posts
     default:
       return state
   }

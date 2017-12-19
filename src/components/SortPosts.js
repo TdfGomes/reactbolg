@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+//ACTIONS
+import { sortedPosts } from '../actions/postsAction'
 //UI
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles'
 import Select from 'material-ui/Select'
-import Input, { InputLabel } from 'material-ui/Input';
+import Input, { InputLabel } from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
-import { FormControl } from 'material-ui/Form';
+import { FormControl } from 'material-ui/Form'
 
 const styles = (theme) => ({
   fromControlRoot: {
@@ -24,11 +27,14 @@ class SortPosts extends Component {
   }
 
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    getPostsSorted: PropTypes.func.isRequired
   }
 
   handleChange = (e) => {
     this.setState({sort:e.target.value})
+
+    this.props.getPostsSorted(e.target.value)
   }
 
   render(){
@@ -44,17 +50,18 @@ class SortPosts extends Component {
           displayEmpty
           multiple={false}
         >
-          <MenuItem key="vote_ascending" value="Vote Ascending">Vote Ascending</MenuItem> 
-          <MenuItem key="vote_descending" value="Vote Descending">Vote Descending</MenuItem> 
-          <MenuItem key="recent" value="Recent">Recent</MenuItem> 
-          <MenuItem key="oldest" value="Oldest">Oldest</MenuItem> 
+          <MenuItem key="voteAsc" value="voteAsc">Vote Ascending</MenuItem> 
+          <MenuItem key="voteDesc" value="voteDesc">Vote Descending</MenuItem> 
+          <MenuItem key="recent" value="recent">Recent</MenuItem> 
+          <MenuItem key="oldest" value="oldest">Oldest</MenuItem> 
         </Select>
       </FormControl>
     )
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  getPostsSorted: (sortVal) => dispatch(sortedPosts(sortVal)),
+})
 
-
-
-export default withStyles(styles)(SortPosts);
+export default connect(null,mapDispatchToProps)(withStyles(styles)(SortPosts))
