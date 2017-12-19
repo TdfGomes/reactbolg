@@ -7,7 +7,7 @@ import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 //Components
-import SearchBar from './SearchBar'
+import SortPosts from './SortPosts'
 
 const styles = (theme) => ({
   gridRoot:{
@@ -23,7 +23,7 @@ const styles = (theme) => ({
     top: 5,
     width: '33.3%',
     height: '100%',
-    padding:'100px 15px 25px 20px',
+    padding:'100px 35px 25px 30px',
   },
   buttonsContainer:{
     width:'100%',
@@ -46,10 +46,10 @@ class SideBar extends Component{
     return(
       <Grid classes={{ typeItem:classes.gridRoot}} item xs={12} sm={4}>
         <div className={classes.fixedSideBar}>
-          <Typography type='subheading' color='secondary' style={{marginBottom:5}}>search:</Typography>
-          <SearchBar/>
+          <Typography type='subheading' color='secondary' style={{marginBottom:5}}>Sort Posts:</Typography>
+          <SortPosts/>
           <div style={{ marginTop: 35 }}>
-            <Typography type='subheading' color='secondary' style={{marginBottom:5}}>categories:</Typography>
+            <Typography type='subheading' color='secondary' style={{marginBottom:5}}>Posts Categories:</Typography>
             <div className={classes.buttonsContainer}>
               <NavLink key="all" exact to="/" activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
                 <Button classes={{raisedPrimary:classes.button}}raised color="contrast">All</Button>

@@ -30,7 +30,17 @@ const styles = (theme) => ({
     padding:'2px 10px'
   },
   postCard:{
-    marginBottom: 25
+    marginBottom: 25,
+    transition: `box-shadow ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}`,
+    '&:hover':{
+      boxShadow:theme.shadows[1]
+    }
+  },
+  title: {
+    transition: `color ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}`,
+    '&:hover':{
+      color: theme.palette.primary[400]
+    }
   }
 })
 
@@ -57,10 +67,6 @@ class Post extends Component {
     voteScore: PropTypes.number.isRequired,
     isSingle: PropTypes.bool
   }
-  
-  editPost = (e) => {
-    console.log(e)
-  }
 
   render(){
     const { classes } = this.props
@@ -71,10 +77,13 @@ class Post extends Component {
       <Card classes={{root:classes.postCard}} raised={true}>
         <CardContent>
           <div>
-            <Typography type="body1" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography>
-            <Typography type="title" component="h2">
-              {!this.props.isSingle ? <Link to={`/posts/${this.props.id}`} style={{ textDecoration: 'none', color:'rgba(0, 0, 0, 0.87)'}}>{this.props.title}</Link> :  this.props.title }
-            </Typography>
+            <Typography type="body1" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography> 
+            {!this.props.isSingle ? 
+              <Link to={`/posts/${this.props.id}`} style={{ textDecoration: 'none' }}>
+                <Typography type="title" component="h2" classes={{title:classes.title}}>{this.props.title}</Typography>
+              </Link> : 
+              this.props.title
+            }
             <Typography type="subheading" className={classes.author}>{this.props.author}</Typography>
             <Typography type="body1" className={classes.body}>{this.props.body}</Typography>
           </div>
