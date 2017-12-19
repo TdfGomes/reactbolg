@@ -33,7 +33,7 @@ const comments = (state = {}, action) => {
       return allComents
     case CREATE_COMMENT:
     if(!state[action.comment.parentId]){
-      Object.defineProperty(state, action.parentId, [action.comment])//create a new key if dont exist
+      state[action.comment.parentId] = [action.comment]
       return state
     }
     else {
