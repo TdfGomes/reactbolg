@@ -34,7 +34,6 @@ const posts = (state = [], action) => {
         }
       })
     case SORT_POST:
-      // console.log(action.posts)
       return action.posts
     default:
       return state

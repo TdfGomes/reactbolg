@@ -51,7 +51,22 @@ export const sortPost = (posts) => ({
 })
 export const sortedPosts = (sortVal) => dispatch => (
   getPosts().then(posts => {
-    console.warn(sortVal)
+    switch(sortVal){
+      case 'voteAsc':
+        posts.sort( (a, b) => a.voteScore > b.voteScore )
+      break
+      case 'voteDesc':
+          posts.sort( (a,b) => a.voteScore < b.voteScore )
+        break
+        case 'recent':
+          posts.sort( (a,b) => a.timestamp < b.timestamp )
+        break
+        case 'oldest':
+          posts.sort( (a,b) => a.timestamp > b.timestamp )
+        break
+      default:
+        return posts
+    }
     return dispatch( sortPost(posts) )
   })
 )
