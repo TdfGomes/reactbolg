@@ -189,14 +189,14 @@ class Form extends Component{
         <Snackbar
           anchorOrigin={{ vertical:'top', horizontal:'center' }}
           open={this.state.sentOk}
-          onRequestClose={ () => this.setState({sentOk:false})}
+          onClose={ () => this.setState({sentOk:false})}
           SnackbarContentProps={{
             'aria-describedby': 'newPost',
           }}
           onEntered={() => setTimeout(() => this.props.goTo('/'), 1000)}
           message={
             this.state.editMode ? 
-              <span id="newPost">You add a edit this post with sucess</span>
+              <span id="newPost">You edit this post with sucess</span>
             :
               <span id="newPost">You add a new post with sucess</span>
           }
