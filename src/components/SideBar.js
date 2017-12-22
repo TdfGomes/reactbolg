@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 //UI
@@ -34,38 +34,36 @@ const styles = (theme) => ({
   
 })
 
-class SideBar extends Component{
-
-  static proptypes = {
-    classes:PropTypes.object.isRequired,
-    categories:PropTypes.array.isRequired
-  }
-  
-  render(){
-    const { categories, classes } = this.props
-    return(
-      <Grid classes={{ typeItem:classes.gridRoot}} item xs={12} sm={4}>
-        <div className={classes.fixedSideBar}>
-          <Typography type='subheading' color='secondary' style={{marginBottom:5}}>Sort Posts:</Typography>
-          <SortPosts/>
-          <div style={{ marginTop: 35 }}>
-            <Typography type='subheading' color='secondary' style={{marginBottom:5}}>Posts Categories:</Typography>
-            <div className={classes.buttonsContainer}>
-              <NavLink key="all" exact to="/" activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
-                <Button classes={{raisedPrimary:classes.button}}raised color="contrast">All</Button>
+const SideBar = (props) => {
+  const { categories, classes } = props
+  console.log(process.env.ORIGIN)
+  return(
+    <Grid classes={{ typeItem:classes.gridRoot}} item xs={12} sm={4}>
+      <div className={classes.fixedSideBar}>
+        <Typography type='subheading' color='secondary' style={{marginBottom:5}}>Sort Posts:</Typography>
+        <SortPosts/>
+        <div style={{ marginTop: 35 }}>
+          <Typography type='subheading' color='secondary' style={{marginBottom:5}}>Posts Categories:</Typography>
+          <div className={classes.buttonsContainer}>
+            <NavLink key="all" exact to="/" activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
+              <Button classes={{raisedPrimary:classes.button}}raised color="contrast">All</Button>
+            </NavLink>
+            {categories.map(cat => 
+              <NavLink key={cat.name} to={`/category/${cat.path}`} activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
+                <Button classes={{raisedPrimary:classes.button}}raised color="contrast">{cat.name}</Button>
               </NavLink>
-              {categories.map(cat => 
-                <NavLink key={cat.name} to={`/category/${cat.path}`} activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
-                  <Button classes={{raisedPrimary:classes.button}}raised color="contrast">{cat.name}</Button>
-                </NavLink>
-              )}
-            </div>
+            )}
           </div>
         </div>
-      </Grid>
-    )
-  }
-} 
+      </div>
+    </Grid>
+  )
+}
 
+
+SideBar.proptypes = {
+  classes: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired
+}
 
 export default withStyles(styles)(SideBar);

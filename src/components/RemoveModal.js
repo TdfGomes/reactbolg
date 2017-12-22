@@ -13,7 +13,7 @@ import Dialog, {
 const RemoveModal = (props) => (
   <Dialog
     open={props.open}
-    onRequestClose={(e) => props.close(false)}
+    onClose={(e) => props.close(false)}
   >
     <DialogTitle>ATTENTION:</DialogTitle>
     <DialogContent >{`Are you sure you want to remove this ${props.mode} ?`}</DialogContent>

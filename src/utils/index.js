@@ -1,7 +1,8 @@
 // import fetch from 'isomorphic-fetch' 
 import uuidv4 from 'uuid'
 
-const URL = "http://localhost:3001"
+const URL = process.env.REACT_APP_BACKEND || "http://localhost:3001"
+
 const headers = {
   'Accept': 'application/json',
   'Authorization': 'pvicXidvqcXZ',

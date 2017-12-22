@@ -46,7 +46,6 @@ class VoteButtons extends Component {
   }
 
   handleVote = (vote) => (e) => {
-    
     if(this.props.mode === 'Post'){
       this.props.votePost(this.props.id,{option:vote})
     }

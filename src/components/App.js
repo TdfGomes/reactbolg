@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 //UI
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
@@ -16,28 +16,20 @@ const theme = createMuiTheme({
   },
 });
 
-class App extends Component{
-  componentDidMount() {
+const App = () => (
+  <MuiThemeProvider theme={theme}>
+    <div>
+      <NavBar />
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/category/:category' component={Home} />
+        <Route exact path='/create-post' component={CreatePost} />
+        <Route exact path='/edit-post/:id' component={CreatePost} />
+        <Route exact path='/posts/:id' component={SinglePost} />
+      </Switch>
+    </div>
+  </MuiThemeProvider>
+)
   
-  }
-  
-  render(){
-    return(
-      <MuiThemeProvider theme={theme}>
-        <div>
-          <NavBar/>
-          <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/category/:category' component={Home}/>
-            <Route exact path='/create-post' component={CreatePost}/>
-            <Route exact path='/edit-post/:id' component={CreatePost}/>
-            <Route exact path='/posts/:id' component={SinglePost}/>
-          </Switch>
-        </div>
-      </MuiThemeProvider>
-    )
-  }
-} 
-
 export default App
 

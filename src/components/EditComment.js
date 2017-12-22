@@ -49,7 +49,7 @@ class EditComment extends Component {
     return(
       <Dialog 
         open={this.props.open}
-        onRequestClose={ (e) => this.props.close(false) }
+        onClose={ (e) => this.props.close(false) }
         transition={Transition}
         >
         <DialogTitle>Edit Your Comment Below:</DialogTitle>
