@@ -25,7 +25,7 @@ const App = () => (
         <Route exact path='/category/:category' component={Home} />
         <Route exact path='/create-post' component={CreatePost} />
         <Route exact path='/edit-post/:id' component={CreatePost} />
-        <Route exact path='/posts/:id' component={SinglePost} />
+        <Route exact path='/:category/:id' component={SinglePost} />
       </Switch>
     </div>
   </MuiThemeProvider>

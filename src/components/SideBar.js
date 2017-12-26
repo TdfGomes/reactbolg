@@ -36,7 +36,7 @@ const styles = (theme) => ({
 
 const SideBar = (props) => {
   const { categories, classes } = props
-  console.log(process.env.ORIGIN)
+  
   return(
     <Grid classes={{ typeItem:classes.gridRoot}} item xs={12} sm={4}>
       <div className={classes.fixedSideBar}>

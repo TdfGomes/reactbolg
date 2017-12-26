@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { removeComment } from '../actions/commentsAction'
+import { removePost } from '../actions/postsAction'
 //UI
 import Button from 'material-ui/Button'
 import Dialog, {
@@ -22,8 +23,9 @@ const RemoveModal = (props) => (
         <Button onClick={ () => {
             if(props.mode === 'comment'){
               props.deleteComment(props.id)
-            }else {
-              
+            }
+            else {
+              props.deletePost(props.id)
             }
             props.close(false)
           }
@@ -43,6 +45,7 @@ RemoveModal.prototype = {
  
 const mapDispatchToProps = (dispatch) => ({
   deleteComment: (id) => dispatch(removeComment(id)),
+  deletePost: (id) => dispatch(removePost(id))
 })
 
 export default connect(null, mapDispatchToProps)(RemoveModal)

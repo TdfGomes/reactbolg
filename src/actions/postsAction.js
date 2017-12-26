@@ -4,13 +4,15 @@ import {
   CREATE_POST,
   VOTE_POST,
   EDIT_POST,
-  SORT_POST } from './actionTypes'
+  SORT_POST, 
+  DELETE_POST} from './actionTypes'
 import { 
   getPosts,
   getPost,
   addPost,
   vote_Post,
-  editPost, } from '../utils'
+  editPost,
+  deletePostById } from '../utils'
 
 //get posts data
 export const requestPosts = (posts) => ({
@@ -70,6 +72,17 @@ export const sortedPosts = (sortVal) => dispatch => (
     return dispatch( sortPost(posts) )
   })
 )
+
+//DELETE POST
+export const deletePost = (post) => ({
+  type: DELETE_POST,
+  post
+})
+
+export const removePost = (id) => dispatch => (
+  deletePostById(id).then(postId => dispatch(deletePost(postId)))
+)
+
 //get single post
 export const requestPost = (post) => ({
   type: REQUEST_POST,

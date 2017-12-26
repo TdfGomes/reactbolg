@@ -3,7 +3,8 @@ import {
   CREATE_POST,
   VOTE_POST,
   EDIT_POST,
-  SORT_POST
+  SORT_POST,
+  DELETE_POST
 } from "../actions/actionTypes";
 
 const posts = (state = [], action) => {
@@ -35,6 +36,8 @@ const posts = (state = [], action) => {
       })
     case SORT_POST:
       return action.posts
+    case DELETE_POST:
+      return state.filter(p => p.id !== action.post.id)
     default:
       return state
   }

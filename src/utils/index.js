@@ -50,7 +50,14 @@ export const editPost = (post) => (
    })
    .then(res => res.json())
 )
-
+//DELETE Post
+export const deletePostById = (id) => (
+  fetch(`${URL}/posts/${id}`, {
+    method: 'DELETE',
+    headers: { 'Authorization': 'pvicXidvqcXZ' },
+  }).then(res => res.json())
+    .then(data => data)
+)
 //GET CATEGORIES
 export const getCategories = () => (
   fetch(`${URL}/categories`, {headers})

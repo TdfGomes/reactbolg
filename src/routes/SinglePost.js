@@ -14,8 +14,9 @@ import { withStyles } from 'material-ui/styles'
 import Post from '../components/Post'
 import Comment from '../components/Comment'
 //ACTIONS
-import { fetchPost } from '../actions/postsAction'
+import { fetchPost,fetchPosts } from '../actions/postsAction'
 import { fetchAllComments, newComment } from '../actions/commentsAction'
+
 
 const styles = ({ transitions }) => ({
   buttonAdd: {
@@ -54,10 +55,13 @@ class SinglePost extends Component {
   }
 
   componentDidMount() {
-    const { getPost, getAllComments, match: { params: { id } } } = this.props
+    const { getPost, getPosts, getAllComments,posts, match: { params: { id } } } = this.props
 
     getPost(id)
     getAllComments()
+    getPosts()
+
+    // console.log(posts.include(this.props.activePost))
   }
 
   toggleEnterState = () => {
@@ -161,11 +165,13 @@ class SinglePost extends Component {
 
 const mapStateToProps = (state) => ({
   activePost: state.activePost,
-  comments: state.comments
+  comments: state.comments,
+  posts: state.posts,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   getPost: (postid) => dispatch(fetchPost(postid)),
+  getPosts: () => dispatch(fetchPosts()),
   getAllComments: () => dispatch(fetchAllComments()),
   createComment : (comment) => dispatch(newComment(comment))
 })

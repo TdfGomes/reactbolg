@@ -9,6 +9,7 @@ import { withStyles } from 'material-ui/styles'
 import VoteButtons from './VoteButtons'
 import EditButtons from './EditButtons'
 import CommentsNumber from './CommentsNumber'
+import RemoveModal from './RemoveModal'
 
 const styles = (theme) => ({
   date: {
@@ -50,7 +51,7 @@ class Post extends Component {
     super(props)
 
     this.state = {
-      delete: false
+      delete: false,
     }
 
   }
@@ -68,32 +69,48 @@ class Post extends Component {
     isSingle: PropTypes.bool
   }
 
+  handleDeletePost = (e) => {
+    this.setState({ delete: e })
+  }
+
+  handleClose = (modalWindow) => (event) => {
+    this.setState({ [modalWindow]: event })
+  }
+
   render(){
     const { classes } = this.props
     const date = new Date(this.props.timestamp)
     const dateOtpions = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
     return(
-      <Card classes={{root:classes.postCard}} raised={true}>
-        <CardContent>
-          <div>
-            <Typography type="body1" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography> 
-            {!this.props.isSingle ? 
-              <Link to={`/posts/${this.props.id}`} style={{ textDecoration: 'none' }}>
-                <Typography type="title" component="h2" classes={{title:classes.title}}>{this.props.title}</Typography>
-              </Link> : 
-              this.props.title
-            }
-            <Typography type="subheading" className={classes.author}>{this.props.author}</Typography>
-            <Typography type="body1" className={classes.body}>{this.props.body}</Typography>
-          </div>
-          { !this.props.isSingle && <CommentsNumber postId={this.props.id}/>}
-        </CardContent>
-        <CardActions classes={{root:classes.cardActionsRoot}}>
-          <VoteButtons id={this.props.id} mode="Post" voteScore={this.props.voteScore}/>
-          {this.props.isSingle && <EditButtons mode="Post" postId={this.props.id} delete={this.deletePost}/>}
-        </CardActions>
-      </Card>
+      <div>
+        <Card classes={{root:classes.postCard}} raised={true}>
+          <CardContent>
+            <div>
+              <Typography type="body1" className={classes.date}>{date.toLocaleDateString('en-us', dateOtpions)}</Typography> 
+              {!this.props.isSingle ? 
+                <Link to={`/${this.props.category}/${this.props.id}`} style={{ textDecoration: 'none' }}>
+                  <Typography type="title" component="h2" classes={{title:classes.title}}>{this.props.title}</Typography>
+                </Link> : 
+                this.props.title
+              }
+              <Typography type="subheading" className={classes.author}>{this.props.author}</Typography>
+              <Typography type="body1" className={classes.body}>{this.props.body}</Typography>
+            </div>
+            { !this.props.isSingle && <CommentsNumber postId={this.props.id}/>}
+          </CardContent>
+          <CardActions classes={{root:classes.cardActionsRoot}}>
+            <VoteButtons id={this.props.id} mode="Post" voteScore={this.props.voteScore}/>
+            <EditButtons mode="Post" postId={this.props.id} delete={this.handleDeletePost}/>
+          </CardActions>
+        </Card>
+        <RemoveModal
+          open={this.state.delete}
+          close={this.handleClose('delete')}
+          id={this.props.id}
+          mode="post"
+        />
+      </div>
     )
   }
 }
