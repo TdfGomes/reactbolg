@@ -109,7 +109,9 @@ class Post extends Component {
           close={this.handleClose('delete')}
           id={this.props.id}
           mode="post"
-        />
+        >
+          Are you sure you want to remove this post ?
+        </RemoveModal>
       </div>
     )
   }

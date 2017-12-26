@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { removeComment } from '../actions/commentsAction'
@@ -11,36 +11,58 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog'
 
-const RemoveModal = (props) => (
-  <Dialog
-    open={props.open}
-    onClose={(e) => props.close(false)}
-  >
-    <DialogTitle>ATTENTION:</DialogTitle>
-    <DialogContent >{`Are you sure you want to remove this ${props.mode} ?`}</DialogContent>
-      <DialogActions>
-        <Button onClick={() => props.close(false)} color="primary">Cancel</Button>
-        <Button onClick={ () => {
-            if(props.mode === 'comment'){
-              props.deleteComment(props.id)
-            }
-            else {
-              props.deletePost(props.id)
-            }
-            props.close(false)
-          }
-        }
-        color="primary">Yes</Button>
-      </DialogActions>
-  </Dialog>
-)
+class RemoveModal extends Component {
+  constructor(props){
+    super(props)
 
-RemoveModal.prototype = {
-  close:PropTypes.func.isRequired,
-  deleteComment:PropTypes.func.isRequired,
-  open:PropTypes.bool.isRequired,
-  id:PropTypes.string.isRequired,
-  mode:PropTypes.string.isRequired,
+    this.state = {
+      dialogContent: `Are you sure you want to remove this ${this.props.mode} ?`,
+      deleted:false
+    }
+  }
+
+  static propType = {
+    close: PropTypes.func.isRequired,
+    deleteComment: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    mode: PropTypes.string.isRequired,
+  }
+  
+  handleDelete = () => {
+    if (this.props.mode === 'comment') {
+      this.props.deleteComment(this.props.id)
+      this.props.close(false)
+    }
+    else { 
+      this.setState({
+          dialogContent:'This post was deleted with sucess !',
+          deleted:true
+        },
+        () => this.props.deletePost(this.props.id)
+          .then(() => setTimeout( () => this.props.close(false) ,1000))
+       
+      )
+    }
+  }
+
+  render(){
+      return(
+      <Dialog
+        open={this.props.open}
+        onClose={(e) => this.props.close(false)}
+      >
+        <DialogTitle>ATTENTION:</DialogTitle>
+        <DialogContent >{this.state.dialogContent}</DialogContent>
+          { ! this.state.deleted &&
+            <DialogActions>
+              <Button onClick={() => this.props.close(false)} color="primary">Cancel</Button>
+              <Button onClick={this.handleDelete} color="primary">Yes</Button>
+            </DialogActions>
+          }
+      </Dialog>
+    )
+  }
 }
  
 const mapDispatchToProps = (dispatch) => ({
