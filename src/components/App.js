@@ -9,6 +9,7 @@ import NavBar from './NavBar'
 import Home from '../routes/Home'
 import CreatePost from '../routes/CreatePost'
 import SinglePost from '../routes/SinglePost'
+import NotFound from '../routes/NotFound'
 
 const theme = createMuiTheme({
   palette: {
@@ -22,10 +23,11 @@ const App = () => (
       <NavBar />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/category/:category' component={Home} />
-        <Route exact path='/create-post' component={CreatePost} />
-        <Route exact path='/edit-post/:id' component={CreatePost} />
-        <Route exact path='/:category/:id' component={SinglePost} />
+        <Route path='/category/:category' component={Home} />
+        <Route path='/create-post' component={CreatePost} />
+        <Route path='/edit-post/:id' component={CreatePost} />
+        <Route path='/:category/:id' component={SinglePost} />
+        <Route component={NotFound} />
       </Switch>
     </div>
   </MuiThemeProvider>

@@ -46,22 +46,15 @@ class SinglePost extends Component {
   }
 
   static propTypes = {
-    // activePost: PropTypes.object.isRequired,
     comments: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
     getAllComments: PropTypes.func.isRequired,
-    // getPost: PropTypes.func.isRequired,
     createComment: PropTypes.func.isRequired
   }
-
+  
   componentDidMount() {
-    // const { getPost, getPosts, getAllComments,posts, match: { params: { id } } } = this.props
-
-    // getPost(id)
     this.props.getAllComments()
     this.props.getPosts()
-
-    // console.log(posts)
   }
 
   toggleEnterState = () => {
@@ -168,13 +161,11 @@ class SinglePost extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // activePost: state.activePost,
   comments: state.comments,
   posts: state.posts,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  // getPost: (postid) => dispatch(fetchPost(postid)),
   getPosts: () => dispatch(fetchPosts()),
   getAllComments: () => dispatch(fetchAllComments()),
   createComment : (comment) => dispatch(newComment(comment))

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { removeComment } from '../actions/commentsAction'
 import { removePost } from '../actions/postsAction'
@@ -39,9 +40,7 @@ class RemoveModal extends Component {
           dialogContent:'This post was deleted with sucess !',
           deleted:true
         },
-        () => this.props.deletePost(this.props.id)
-          .then(() => setTimeout( () => this.props.close(false) ,1000))
-       
+        () => setTimeout( () => this.props.deletePost(this.props.id).then(() => this.props.history.push('/') ), 1500 )
       )
     }
   }
@@ -70,4 +69,4 @@ const mapDispatchToProps = (dispatch) => ({
   deletePost: (id) => dispatch(removePost(id))
 })
 
-export default connect(null, mapDispatchToProps)(RemoveModal)
+export default withRouter( connect(null, mapDispatchToProps)(RemoveModal) )
