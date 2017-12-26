@@ -49,7 +49,7 @@ const SideBar = (props) => {
               <Button classes={{raisedPrimary:classes.button}}raised color="contrast">All</Button>
             </NavLink>
             {categories.map(cat => 
-              <NavLink key={cat.name} to={`/category/${cat.path}`} activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
+              <NavLink key={cat.name} to={`/${cat.path}`} activeClassName="categorySelected" style={{ textDecoration: 'none', display: 'block', marginBottom: 15 }}>
                 <Button classes={{raisedPrimary:classes.button}}raised color="contrast">{cat.name}</Button>
               </NavLink>
             )}

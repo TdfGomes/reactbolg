@@ -97,7 +97,7 @@ class Post extends Component {
               <Typography type="subheading" className={classes.author}>{this.props.author}</Typography>
               <Typography type="body1" className={classes.body}>{this.props.body}</Typography>
             </div>
-            { !this.props.isSingle && <CommentsNumber postId={this.props.id}/>}
+            <CommentsNumber postId={this.props.id}/>
           </CardContent>
           <CardActions classes={{root:classes.cardActionsRoot}}>
             <VoteButtons id={this.props.id} mode="Post" voteScore={this.props.voteScore}/>
