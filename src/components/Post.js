@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 //UI
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
+import Chip from 'material-ui/Chip'
 import { withStyles } from 'material-ui/styles'
 //Components
 import VoteButtons from './VoteButtons'
@@ -42,6 +43,10 @@ const styles = (theme) => ({
     '&:hover':{
       color: theme.palette.primary[400]
     }
+  },
+  chipBg:{
+    backgroundColor: theme.palette.primary[100],
+    color: theme.palette.primary[900]
   }
 })
 
@@ -98,6 +103,7 @@ class Post extends Component {
               <Typography type="body1" className={classes.body}>{this.props.body}</Typography>
             </div>
             <CommentsNumber postId={this.props.id}/>
+            <Chip label={this.props.category} classes={{root:classes.chipBg}}/>
           </CardContent>
           <CardActions classes={{root:classes.cardActionsRoot}}>
             <VoteButtons id={this.props.id} mode="Post" voteScore={this.props.voteScore}/>

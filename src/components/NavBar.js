@@ -37,7 +37,7 @@ const NavBar = () => (
           </IconButton>
         </Tooltip>
       </NavLink>
-      <NavLink to='/create-post'>
+      <NavLink exact to='/create-post'>
         <Tooltip id='edit' title='create a post' placement='bottom'>
           <IconButton aria-label="edit">
             <ModeEditIcon style={{ color:'#fff' }}/>
