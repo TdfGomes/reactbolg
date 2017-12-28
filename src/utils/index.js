@@ -15,10 +15,6 @@ export const getPosts = () => (
   .then(res => res.json())
 )
 
-export const getPost = (postid) => (
-  fetch(`${URL}/posts/${postid}`, {headers})
-  .then(res => res.json())
-)
 //POST POST
 export const addPost = (post) => {
   const result = {
@@ -50,13 +46,18 @@ export const editPost = (post) => (
    })
    .then(res => res.json())
 )
-//DELETE Post
+//DELETE POST
 export const deletePostById = (id) => (
   fetch(`${URL}/posts/${id}`, {
     method: 'DELETE',
     headers: { 'Authorization': 'pvicXidvqcXZ' },
   }).then(res => res.json())
     .then(data => data)
+)
+//GET SINGLE POST
+export const getPost = (postid) => (
+  fetch(`${URL}/posts/${postid}`, { headers })
+    .then(res => res.json())
 )
 //GET CATEGORIES
 export const getCategories = () => (
