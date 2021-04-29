@@ -5,7 +5,7 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "next",
-    "material-ui-icons": "^1.0.0-beta.17",
+    "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-search-bar": "^0.4.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
