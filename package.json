@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "^3.0.0",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-search-bar": "^0.4.0",
