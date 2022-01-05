@@ -7,7 +7,7 @@
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-search-bar": "^0.4.0",
-    "prop-types": "^15.8.0",
+    "prop-types": "^15.8.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-redux": "^7.2.6",
