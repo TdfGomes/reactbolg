@@ -6,7 +6,7 @@
     "isomorphic-fetch": "^3.0.0",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-beta.36",
-    "material-ui-search-bar": "^0.4.0",
+    "material-ui-search-bar": "^1.0.0",
     "prop-types": "^15.8.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
